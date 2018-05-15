@@ -30,3 +30,5 @@ var app = http.createServer(
     ).listen(port);
 
     console.log('The Server is running');
+    console.log('The port '         + port);
+    console.log('The directory'     + directory );
