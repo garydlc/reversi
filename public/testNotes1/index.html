@@ -1,0 +1,656 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- øô€… Dropbox workaround to force UTF8 HTTP header -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>testNotes1</title>
+
+<style type="text/css">p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+</style>
+
+<link rel="stylesheet" href="pear.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="ghindaVideoPlayer.css" type="text/css" media="screen" />
+
+<!--[if IE]>
+<script>
+  var e = ("abbr,article,aside,audio,canvas,datalist,details," +
+    "figure,footer,header,hgroup,mark,menu,meter,nav,output," +
+    "progress,section,time,video").split(',');
+  for (var i = 0; i < e.length; i++) {
+    document.createElement(e[i]);
+  }
+</script>
+<![endif]-->
+
+<script type="text/javascript" src="flowplayer-3.1.4.min.js"></script>
+<script type="text/javascript" src="flowplayer.controls-3.0.2.min.js"></script>
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="jquery.ghindaVideoPlayer.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#movie1').gVideo();		
+	});
+</script>
+
+<script language="Javascript" type="text/javascript">
+
+	var KEY = 1;
+	var SLIDE = 2;
+	
+	
+	var timestamps = [
+{"time": 7.178776, "index": 19, "type": KEY},
+{"time": 7.282894, "index": 20, "type": KEY},
+{"time": 7.490905, "index": 21, "type": KEY},
+{"time": 7.746906, "index": 22, "type": KEY},
+{"time": 8.138886, "index": 23, "type": KEY},
+{"time": 8.226825, "index": 24, "type": KEY},
+{"time": 8.394891, "index": 25, "type": KEY},
+{"time": 8.443052, "index": 26, "type": KEY},
+{"time": 8.562829, "index": 27, "type": KEY},
+{"time": 8.626814, "index": 28, "type": KEY},
+{"time": 8.706826, "index": 29, "type": KEY},
+{"time": 8.818587, "index": 30, "type": KEY},
+{"time": 8.906976, "index": 31, "type": KEY},
+{"time": 9.098759, "index": 32, "type": KEY},
+{"time": 16.883010, "index": 33, "type": KEY},
+{"time": 16.947655, "index": 34, "type": KEY},
+{"time": 17.354801, "index": 35, "type": KEY},
+{"time": 18.234854, "index": 36, "type": KEY},
+{"time": 18.290852, "index": 37, "type": KEY},
+{"time": 18.370644, "index": 38, "type": KEY},
+{"time": 18.938880, "index": 39, "type": KEY},
+{"time": 19.058842, "index": 40, "type": KEY},
+{"time": 19.954838, "index": 41, "type": KEY},
+{"time": 20.066851, "index": 42, "type": KEY},
+{"time": 20.154833, "index": 43, "type": KEY},
+{"time": 20.234566, "index": 44, "type": KEY},
+{"time": 20.331027, "index": 45, "type": KEY},
+{"time": 21.666897, "index": 46, "type": KEY},
+{"time": 24.634908, "index": 47, "type": KEY},
+{"time": 24.714907, "index": 48, "type": KEY},
+{"time": 24.810888, "index": 49, "type": KEY},
+{"time": 24.986720, "index": 50, "type": KEY},
+{"time": 25.050851, "index": 51, "type": KEY},
+{"time": 25.106643, "index": 52, "type": KEY},
+{"time": 25.154974, "index": 53, "type": KEY},
+{"time": 25.570838, "index": 54, "type": KEY},
+{"time": 25.682923, "index": 55, "type": KEY},
+{"time": 25.930900, "index": 56, "type": KEY},
+{"time": 25.986745, "index": 57, "type": KEY},
+{"time": 26.082750, "index": 58, "type": KEY},
+{"time": 26.138730, "index": 59, "type": KEY},
+{"time": 26.202897, "index": 60, "type": KEY},
+{"time": 26.394795, "index": 61, "type": KEY},
+{"time": 26.450845, "index": 62, "type": KEY},
+{"time": 26.546671, "index": 63, "type": KEY},
+{"time": 27.218894, "index": 64, "type": KEY},
+{"time": 27.355867, "index": 65, "type": KEY},
+{"time": 27.426476, "index": 66, "type": KEY},
+{"time": 27.706797, "index": 67, "type": KEY},
+{"time": 29.154839, "index": 68, "type": KEY},
+{"time": 29.346770, "index": 69, "type": KEY},
+{"time": 29.434833, "index": 70, "type": KEY},
+{"time": 29.594900, "index": 71, "type": KEY},
+{"time": 29.714678, "index": 72, "type": KEY},
+{"time": 29.802924, "index": 73, "type": KEY},
+{"time": 30.018804, "index": 74, "type": KEY},
+{"time": 34.354867, "index": 75, "type": KEY},
+{"time": 34.458924, "index": 76, "type": KEY},
+{"time": 34.674742, "index": 77, "type": KEY},
+{"time": 34.842718, "index": 78, "type": KEY},
+{"time": 34.930908, "index": 79, "type": KEY},
+{"time": 35.012006, "index": 80, "type": KEY},
+{"time": 35.130684, "index": 81, "type": KEY},
+{"time": 35.522834, "index": 82, "type": KEY},
+{"time": 35.802887, "index": 83, "type": KEY},
+{"time": 36.034868, "index": 84, "type": KEY},
+{"time": 36.090838, "index": 85, "type": KEY},
+{"time": 36.178739, "index": 86, "type": KEY},
+{"time": 36.234783, "index": 87, "type": KEY},
+{"time": 36.314894, "index": 88, "type": KEY},
+{"time": 36.514869, "index": 89, "type": KEY},
+{"time": 36.570974, "index": 90, "type": KEY},
+{"time": 36.706748, "index": 91, "type": KEY},
+{"time": 37.467038, "index": 92, "type": KEY},
+{"time": 37.514913, "index": 93, "type": KEY},
+{"time": 37.610575, "index": 94, "type": KEY},
+{"time": 37.722767, "index": 95, "type": KEY},
+{"time": 37.810760, "index": 96, "type": KEY},
+{"time": 37.906815, "index": 97, "type": KEY},
+{"time": 38.008763, "index": 98, "type": KEY},
+{"time": 38.082830, "index": 99, "type": KEY},
+{"time": 38.163090, "index": 100, "type": KEY},
+{"time": 38.258735, "index": 101, "type": KEY},
+{"time": 38.442746, "index": 102, "type": KEY},
+{"time": 39.074811, "index": 103, "type": KEY},
+{"time": 39.147196, "index": 104, "type": KEY},
+{"time": 39.282732, "index": 105, "type": KEY},
+{"time": 39.442726, "index": 106, "type": KEY},
+{"time": 39.538711, "index": 107, "type": KEY},
+{"time": 39.651113, "index": 108, "type": KEY},
+{"time": 39.778717, "index": 109, "type": KEY},
+{"time": 39.906947, "index": 110, "type": KEY},
+{"time": 39.970969, "index": 111, "type": KEY},
+{"time": 40.474892, "index": 112, "type": KEY},
+{"time": 40.546789, "index": 113, "type": KEY},
+{"time": 40.650731, "index": 114, "type": KEY},
+{"time": 40.730761, "index": 115, "type": KEY},
+{"time": 40.810945, "index": 116, "type": KEY},
+{"time": 40.939159, "index": 117, "type": KEY},
+{"time": 41.009432, "index": 118, "type": KEY},
+{"time": 41.122919, "index": 119, "type": KEY},
+{"time": 42.698917, "index": 120, "type": KEY},
+{"time": 42.818657, "index": 121, "type": KEY},
+{"time": 42.914515, "index": 122, "type": KEY},
+{"time": 43.186726, "index": 123, "type": KEY},
+{"time": 43.226968, "index": 124, "type": KEY},
+{"time": 43.354908, "index": 125, "type": KEY},
+{"time": 43.458850, "index": 126, "type": KEY},
+{"time": 43.546829, "index": 127, "type": KEY},
+{"time": 43.626654, "index": 128, "type": KEY},
+{"time": 43.722810, "index": 129, "type": KEY},
+{"time": 44.034678, "index": 130, "type": KEY},
+{"time": 47.572315, "index": 131, "type": KEY},
+{"time": 47.674726, "index": 132, "type": KEY},
+{"time": 47.762536, "index": 133, "type": KEY},
+{"time": 47.955926, "index": 134, "type": KEY},
+{"time": 48.042760, "index": 135, "type": KEY},
+{"time": 48.146741, "index": 136, "type": KEY},
+{"time": 48.266640, "index": 137, "type": KEY},
+{"time": 48.322702, "index": 138, "type": KEY},
+{"time": 48.426876, "index": 139, "type": KEY},
+{"time": 49.514947, "index": 140, "type": KEY},
+{"time": 49.570858, "index": 141, "type": KEY},
+{"time": 49.626867, "index": 142, "type": KEY},
+{"time": 49.682746, "index": 143, "type": KEY},
+{"time": 49.770994, "index": 144, "type": KEY},
+{"time": 49.874738, "index": 145, "type": KEY},
+{"time": 49.946825, "index": 146, "type": KEY},
+{"time": 50.074565, "index": 147, "type": KEY},
+{"time": 53.906953, "index": 148, "type": KEY},
+{"time": 54.107252, "index": 149, "type": KEY},
+{"time": 54.330842, "index": 150, "type": KEY},
+{"time": 55.066970, "index": 151, "type": KEY},
+{"time": 55.146740, "index": 152, "type": KEY},
+{"time": 55.299005, "index": 153, "type": KEY},
+{"time": 55.362753, "index": 154, "type": KEY},
+{"time": 55.443149, "index": 155, "type": KEY},
+{"time": 55.562598, "index": 156, "type": KEY},
+{"time": 55.650639, "index": 157, "type": KEY}
+];
+
+	var noMovie = false
+	
+	var movie = false;
+	var origBackgroundColors = {};
+	var highlightedChars = [];
+	var lastProcessed = -1;
+	var displayTimeout = false;
+	var videoLoaded = false;
+	var fellback = false;
+	
+	function getMovie() {
+		if (movie === false && noMovie === false) {
+			movie = document.getElementById("movie1");
+		}
+	};
+	
+	function highlightFinished(anID) {
+		var element = document.getElementById(anID);
+		element.style.backgroundColor = origBackgroundColors[anID];
+	};
+	
+	function changeToSlide(slideNum) {
+		var slidesElement = document.getElementById("slides");
+		if (slidesElement) {
+			slidesElement.src = "slides/" + String(slideNum) + ".png";
+			var slidesLink = document.getElementById("slideslink");
+			if (slidesLink) {
+				slidesLink.href = "slides/fullsize/" + String(slideNum) + ".png";
+			}
+			var slideNumField = document.getElementById("slidenum");
+			slideNumField.value = String(slideNum);
+		}
+	};
+	
+	function updateDisplay() {
+		clearTimeout(displayTimeout);
+		var i, j;
+		getMovie();
+		var secs;
+		
+		try {
+			if (fellback)
+				secs = movie.getTime();
+			else
+				secs = movie.currentTime;
+		} catch (e) {
+			if (noMovie === false) {
+				displayTimeout = setTimeout(updateDisplay, 300);
+			}
+			return;
+		}
+		if (lastProcessed >= 0 && timestamps[lastProcessed].time > secs) {
+			resetHighlight(false);
+			lastProcessed = -1;
+		}
+		var toHighlight = [];
+		for (i=lastProcessed+1;i<timestamps.length;i++) {
+			if (timestamps[i].time <= secs) {
+				if (timestamps[i].type == KEY) {
+					var word = wordForChar(timestamps[i].index);
+					if (word !== false) {
+						if (toHighlight.length > 0) {
+							if (timestamps[toHighlight[0]].index < word.first || timestamps[toHighlight[0]].index > word.last) {
+								toHighlight = [];
+							}
+						}
+						toHighlight[toHighlight.length] = i;
+					}
+				}
+				else if (timestamps[i].type == SLIDE) {
+					changeToSlide(timestamps[i].index);
+				}
+				lastProcessed = i;
+			}
+			else {
+				break;
+			}
+		}
+		for (j=0; j<toHighlight.length; j++) {
+			i = toHighlight[j];
+			var theID = "char" + String(timestamps[i].index);
+			var theChar = document.getElementById(theID);
+			if (!(/^\s$/.test(theChar.innerHTML))) {
+				resetHighlight(timestamps[i].index);
+				if (!origBackgroundColors.hasOwnProperty(theID)) {
+					origBackgroundColors[theID] = theChar.style.backgroundColor;
+				}
+				var f = function(param) {
+					setTimeout(function() {highlightFinished(param)}, 300);;
+				};
+				f(theID);
+				theChar.style.backgroundColor = "yellow";
+				theChar.style.borderBottomStyle = "solid";
+				theChar.style.borderBottomWidth = "medium";
+				theChar.style.borderBottomColor = "blue";
+				highlightedChars[highlightedChars.length] = timestamps[i].index;
+			}
+		}
+		var paused;
+		if (fellback)
+			paused = movie.isPaused();
+		else
+			paused = movie.paused || movie.ended;
+		if (paused) {
+			displayTimeout = setTimeout(updateDisplay, 300);
+		}
+		else {
+			displayTimeout = setTimeout(updateDisplay, 30);
+		}
+	};
+
+	function realParent(anElement) {
+		var myParent = anElement.parentNode;
+		while (myParent.tagName == "A" || myParent.tagName == "SPAN") {
+			myParent = myParent.parentNode;
+		}
+		return myParent;
+	};
+	
+	function wordForChar(charIndex) {
+		var i;
+		var first = 0;
+		var last = timestamps.length-1;
+		var thisElement = document.getElementById("char" + String(charIndex));
+		var theChar = thisElement.innerHTML;
+		var myParent = realParent(thisElement);
+		if (/^\s$/.test(theChar)) {
+			return false;
+		}
+		for (i=charIndex;i>0;i--) {
+			thisElement = document.getElementById("char" + String(i));
+			theChar = thisElement.innerHTML;
+			if (/^\s$/.test(theChar) || realParent(thisElement) != myParent) {
+				first = i+1;
+				break;
+			}
+		}
+		for (i=charIndex;i<last;i++) {
+			thisElement = document.getElementById("char" + String(i));
+			theChar = thisElement.innerHTML;
+			if (/^\s$/.test(theChar) || realParent(thisElement) != myParent) {
+				last = i-1;
+				break;
+			}
+		}
+		return {"first": first, "last": last};
+	};
+	
+	function resetHighlight(newChar) {
+		var shouldReset = false;
+		if (highlightedChars.length > 0) {
+			if (newChar !== false) {
+				var word = wordForChar(highlightedChars[highlightedChars.length-1]);
+				if (word !== false && (newChar < word.first || newChar > word.last)) {
+					shouldReset = true;
+				}
+			}
+			else {
+				shouldReset = true;
+			}
+		}
+		if (shouldReset) {
+			for (aChar in highlightedChars) {
+				var theChar = document.getElementById("char" + String(highlightedChars[aChar]));
+					theChar.style.borderBottomWidth = "0";
+			}
+			highlightedChars = [];
+		}
+	};
+	
+	function jumpTo(index, type) {
+		clearTimeout(displayTimeout);
+		var i;
+		getMovie();
+		var offset = 10;
+		if (type == SLIDE)
+			offset = 0;
+		for (i=0;i<timestamps.length;i++) {
+			var ts = timestamps[i];
+			if (ts.type == type && ts.index === index) {
+				lastProcessed = -1;
+				if (fellback)
+					movie.seek(ts.time);
+				else
+					movie.currentTime = ts.time - offset;
+				updateDisplay();
+				break;
+			}
+		}
+	};
+	
+	function charClicked(char) {
+		if (noMovie === false) {
+			jumpTo(char, KEY);
+		}
+	};
+	
+	function slideSelected(slideNum) {
+		if (noMovie === false) {
+			jumpTo(slideNum, SLIDE);
+		}
+		changeToSlide(slideNum);
+	};
+	
+	function slideNumFieldChanged() {
+		var textField = document.getElementById("slidenum");
+		var newSlide = parseInt(textField.value, 10);
+		if (newSlide < 1 || newSlide > numberOfSlides) {
+			clearTimeout(displayTimeout);
+			textField.value = "1";
+			lastProcessed = -1;
+			updateDisplay();
+		}
+		else {
+			slideSelected(newSlide);
+		}
+	};
+	
+	function play() {
+		clearTimeout(displayTimeout);
+		getMovie();
+		
+		movie.play();
+		displayTimeout = setTimeout(updateDisplay, 5);
+	};
+	
+	function stop() {
+		getMovie();
+		movie.pause();
+	};
+	
+	function jumpBack() {
+		getMovie();
+		var currentTime = movie.getTime();
+		movie.seek(currentTime - 30);
+	};
+
+
+	//slider volume control --needs jQuery library and jQuery UI loaded--	
+	
+	$(function() {
+		$("#volumeSlider").slider({ 
+			value: 40,
+			max:	93,
+			animate: true,
+			start: function(event, ui) {
+				var movieVolume = $("#volumeSlider").slider( "option", "value" );		
+				movie.setVolume(movieVolume);
+			},
+			change: function(event, ui) {
+				var movieVolume = $("#volumeSlider").slider( "option", "value" );		
+				movie.setVolume(movieVolume);
+			},
+			slide: function(event, ui) {
+				var movieVolume = $("#volumeSlider").slider( "option", "value" );		
+				movie.setVolume(movieVolume);
+				}
+		});
+	});
+
+	function fallback() {
+	
+		$('#theControls').removeClass('hide');
+		$('#volumeTrack').removeClass('hide');	
+	
+		if (!fellback) {
+			var video = document.getElementById("movie1");
+			while (video.hasChildNodes())
+				video.parentNode.parentNode.insertBefore(video.firstChild, video.parentNode);
+			video.parentNode.parentNode.removeChild(video.parentNode);
+			var player = flowplayer("movie1fallback", "flowplayer-3.1.5.swf", {
+				clip: {
+					url: "recording.mp4",
+					autoPlay: false,
+					autoBuffering: true
+				},
+				plugins: {controls: null}			
+			}).controls("theControls",  {
+
+				// CSS class name for the playhead
+				playHeadClass: 'playhead',
+
+				// CSS class name for the track
+				trackClass: 'track',
+
+				// CSS class name for the playhead when in a playing state
+				playClass: 'play',
+
+				// CSS class name for the playhead when in a paused state
+				pauseClass: 'paused',
+
+				// CSS class name for the buffer bar
+				bufferClass: 'buffer',
+
+				// CSS class name for the progress bar
+				progressClass: 'progress',
+
+				// CSS class name for the time display
+				timeClass: 'time',
+
+				// CSS class name for mute button
+				muteClass: 'mute',
+
+				// a default duration for the time display in seconds
+				duration: 0
+			});
+			fellback = true;
+			movie = player;
+		}
+	};
+	
+</script>
+
+</head>
+<body onload="updateDisplay();">
+	
+	<div id="wrapper">
+	
+		<div id="header">
+	
+			<div id="controlsContainer">
+		
+			<div id="controls">
+			
+				<!-- controlbar container -->
+				<div id="theControls" class="theControls hide">
+	
+				<div class="play "><a class ="ghinda-video-play"href="#">Play</a></div>
+				<div class="pause"><a href="javascript:stop();">Pause</a></div>
+				<div class="jump"><a href="javascript:jumpBack();">Jump</a></div>
+	
+				<!-- track or "scrubber" -->
+				<div class="track">
+	
+					<!-- buffer bar that grows -->
+					<div class="buffer"></div>
+	
+					<!-- progress bar that grows -->
+					<div class="progress"></div>
+	
+					<!-- draggable playhead -->
+					<div class="playhead"></div>
+	
+				</div>
+	
+				<!-- time display (since 3.0.2) -->
+				<div class="time"></div>
+	
+				<!-- mute button (since 3.0.2) -->
+				<div class="mute">mute</div>
+	
+				</div>
+	
+			</div><!-- controls -->
+			
+			<div id="headerTitle">		
+				<h2>testNotes1</h2>
+				<h3>By Gary</h3>		
+			</div><!-- headerTitle -->
+			
+			<a id="webLink" href="http://www.usefulfruit.com/pearnote/" target="_blank">Pear Note Website</a>
+			
+			</div><!-- controlsContainer -->
+			
+			<div id="statusContainer">
+			
+				<div id="statusBar">
+					<div id="statusBar-left"></div>	
+					<div id="statusBar-right"></div>
+				</div>
+		
+			</div><!-- statusContainer -->
+
+		</div><!-- header -->
+	
+		<div id="contentWrapper">
+			
+			<div id="textview">
+				<p class="p1"><a href="javascript:charClicked(0);"><span id="char0">t</span></a><a href="javascript:charClicked(1);"><span id="char1">e</span></a><a href="javascript:charClicked(2);"><span id="char2">s</span></a><a href="javascript:charClicked(3);"><span id="char3">t</span></a><a href="javascript:charClicked(4);"><span id="char4"> </span></a><a href="javascript:charClicked(5);"><span id="char5">n</span></a><a href="javascript:charClicked(6);"><span id="char6">o</span></a><a href="javascript:charClicked(7);"><span id="char7">t</span></a><a href="javascript:charClicked(8);"><span id="char8">e</span></a><a href="javascript:charClicked(9);"><span id="char9">s</span></a><a href="javascript:charClicked(10);"><span id="char10"> </span></a><a href="javascript:charClicked(11);"><span id="char11">1</span></a><span class="Apple-converted-space"><a href="javascript:charClicked(12);"><span id="char12"> </span></a></span><a href="javascript:charClicked(13);"><span id="char13">
+</span></a></p>
+<p class="p1"><a href="javascript:charClicked(14);"><span id="char14">g</span></a><a href="javascript:charClicked(15);"><span id="char15">a</span></a><a href="javascript:charClicked(16);"><span id="char16">r</span></a><a href="javascript:charClicked(17);"><span id="char17">y</span></a><a href="javascript:charClicked(18);"><span id="char18">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(19);"><span id="char19">a</span></a><a href="javascript:charClicked(20);"><span id="char20">t</span></a><a href="javascript:charClicked(21);"><span id="char21"> </span></a><a href="javascript:charClicked(22);"><span id="char22">1</span></a><a href="javascript:charClicked(23);"><span id="char23">0</span></a><a href="javascript:charClicked(24);"><span id="char24"> </span></a><a href="javascript:charClicked(25);"><span id="char25">s</span></a><a href="javascript:charClicked(26);"><span id="char26">e</span></a><a href="javascript:charClicked(27);"><span id="char27">c</span></a><a href="javascript:charClicked(28);"><span id="char28">o</span></a><a href="javascript:charClicked(29);"><span id="char29">n</span></a><a href="javascript:charClicked(30);"><span id="char30">d</span></a><a href="javascript:charClicked(31);"><span id="char31">s</span></a><a href="javascript:charClicked(32);"><span id="char32">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(33);"><span id="char33">a</span></a><a href="javascript:charClicked(34);"><span id="char34">t</span></a><a href="javascript:charClicked(35);"><span id="char35"> </span></a><a href="javascript:charClicked(36);"><span id="char36">2</span></a><a href="javascript:charClicked(37);"><span id="char37">0</span></a><a href="javascript:charClicked(38);"><span id="char38"> </span></a><a href="javascript:charClicked(39);"><span id="char39">s</span></a><a href="javascript:charClicked(40);"><span id="char40">e</span></a><a href="javascript:charClicked(41);"><span id="char41">c</span></a><a href="javascript:charClicked(42);"><span id="char42">o</span></a><a href="javascript:charClicked(43);"><span id="char43">n</span></a><a href="javascript:charClicked(44);"><span id="char44">d</span></a><a href="javascript:charClicked(45);"><span id="char45">s</span></a><a href="javascript:charClicked(46);"><span id="char46">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(47);"><span id="char47">t</span></a><a href="javascript:charClicked(48);"><span id="char48">a</span></a><a href="javascript:charClicked(49);"><span id="char49">k</span></a><a href="javascript:charClicked(50);"><span id="char50">i</span></a><a href="javascript:charClicked(51);"><span id="char51">n</span></a><a href="javascript:charClicked(52);"><span id="char52">g</span></a><a href="javascript:charClicked(53);"><span id="char53"> </span></a><a href="javascript:charClicked(54);"><span id="char54">a</span></a><a href="javascript:charClicked(55);"><span id="char55"> </span></a><a href="javascript:charClicked(56);"><span id="char56">n</span></a><a href="javascript:charClicked(57);"><span id="char57">o</span></a><a href="javascript:charClicked(58);"><span id="char58">t</span></a><a href="javascript:charClicked(59);"><span id="char59">e</span></a><a href="javascript:charClicked(60);"><span id="char60"> </span></a><a href="javascript:charClicked(61);"><span id="char61">a</span></a><a href="javascript:charClicked(62);"><span id="char62">t</span></a><a href="javascript:charClicked(63);"><span id="char63"> </span></a><a href="javascript:charClicked(64);"><span id="char64">3</span></a><a href="javascript:charClicked(65);"><span id="char65">0</span></a><a href="javascript:charClicked(66);"><span id="char66"> </span></a><a href="javascript:charClicked(67);"><span id="char67">s</span></a><a href="javascript:charClicked(68);"><span id="char68">e</span></a><a href="javascript:charClicked(69);"><span id="char69">c</span></a><a href="javascript:charClicked(70);"><span id="char70">o</span></a><a href="javascript:charClicked(71);"><span id="char71">n</span></a><a href="javascript:charClicked(72);"><span id="char72">d</span></a><a href="javascript:charClicked(73);"><span id="char73">s</span></a><a href="javascript:charClicked(74);"><span id="char74">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(75);"><span id="char75">t</span></a><a href="javascript:charClicked(76);"><span id="char76">a</span></a><a href="javascript:charClicked(77);"><span id="char77">k</span></a><a href="javascript:charClicked(78);"><span id="char78">i</span></a><a href="javascript:charClicked(79);"><span id="char79">n</span></a><a href="javascript:charClicked(80);"><span id="char80">g</span></a><a href="javascript:charClicked(81);"><span id="char81"> </span></a><a href="javascript:charClicked(82);"><span id="char82">a</span></a><a href="javascript:charClicked(83);"><span id="char83"> </span></a><a href="javascript:charClicked(84);"><span id="char84">n</span></a><a href="javascript:charClicked(85);"><span id="char85">o</span></a><a href="javascript:charClicked(86);"><span id="char86">t</span></a><a href="javascript:charClicked(87);"><span id="char87">e</span></a><a href="javascript:charClicked(88);"><span id="char88"> </span></a><a href="javascript:charClicked(89);"><span id="char89">a</span></a><a href="javascript:charClicked(90);"><span id="char90">t</span></a><a href="javascript:charClicked(91);"><span id="char91"> </span></a><a href="javascript:charClicked(92);"><span id="char92">4</span></a><a href="javascript:charClicked(93);"><span id="char93">0</span></a><a href="javascript:charClicked(94);"><span id="char94"> </span></a><a href="javascript:charClicked(95);"><span id="char95">s</span></a><a href="javascript:charClicked(96);"><span id="char96">e</span></a><a href="javascript:charClicked(97);"><span id="char97">c</span></a><a href="javascript:charClicked(98);"><span id="char98">o</span></a><a href="javascript:charClicked(99);"><span id="char99">n</span></a><a href="javascript:charClicked(100);"><span id="char100">d</span></a><a href="javascript:charClicked(101);"><span id="char101">s</span></a><a href="javascript:charClicked(102);"><span id="char102">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(103);"><span id="char103">t</span></a><a href="javascript:charClicked(104);"><span id="char104">a</span></a><a href="javascript:charClicked(105);"><span id="char105">k</span></a><a href="javascript:charClicked(106);"><span id="char106">i</span></a><a href="javascript:charClicked(107);"><span id="char107">n</span></a><a href="javascript:charClicked(108);"><span id="char108">g</span></a><a href="javascript:charClicked(109);"><span id="char109"> </span></a><a href="javascript:charClicked(110);"><span id="char110">a</span></a><a href="javascript:charClicked(111);"><span id="char111"> </span></a><a href="javascript:charClicked(112);"><span id="char112">n</span></a><a href="javascript:charClicked(113);"><span id="char113">o</span></a><a href="javascript:charClicked(114);"><span id="char114">t</span></a><a href="javascript:charClicked(115);"><span id="char115">e</span></a><a href="javascript:charClicked(116);"><span id="char116"> </span></a><a href="javascript:charClicked(117);"><span id="char117">a</span></a><a href="javascript:charClicked(118);"><span id="char118">t</span></a><a href="javascript:charClicked(119);"><span id="char119"> </span></a><a href="javascript:charClicked(120);"><span id="char120">5</span></a><a href="javascript:charClicked(121);"><span id="char121">0</span></a><a href="javascript:charClicked(122);"><span id="char122"> </span></a><a href="javascript:charClicked(123);"><span id="char123">s</span></a><a href="javascript:charClicked(124);"><span id="char124">e</span></a><a href="javascript:charClicked(125);"><span id="char125">c</span></a><a href="javascript:charClicked(126);"><span id="char126">o</span></a><a href="javascript:charClicked(127);"><span id="char127">n</span></a><a href="javascript:charClicked(128);"><span id="char128">d</span></a><a href="javascript:charClicked(129);"><span id="char129">s</span></a><a href="javascript:charClicked(130);"><span id="char130">
+</span></a></p>
+<p class="p2"><br>
+</br></p>
+<p class="p1"><a href="javascript:charClicked(131);"><span id="char131">t</span></a><a href="javascript:charClicked(132);"><span id="char132">a</span></a><a href="javascript:charClicked(133);"><span id="char133">k</span></a><a href="javascript:charClicked(134);"><span id="char134">i</span></a><a href="javascript:charClicked(135);"><span id="char135">n</span></a><a href="javascript:charClicked(136);"><span id="char136">g</span></a><a href="javascript:charClicked(137);"><span id="char137"> </span></a><a href="javascript:charClicked(138);"><span id="char138">a</span></a><a href="javascript:charClicked(139);"><span id="char139"> </span></a><a href="javascript:charClicked(140);"><span id="char140">n</span></a><a href="javascript:charClicked(141);"><span id="char141">o</span></a><a href="javascript:charClicked(142);"><span id="char142">t</span></a><a href="javascript:charClicked(143);"><span id="char143">e</span></a><a href="javascript:charClicked(144);"><span id="char144"> </span></a><a href="javascript:charClicked(145);"><span id="char145">a</span></a><a href="javascript:charClicked(146);"><span id="char146">t</span></a><a href="javascript:charClicked(147);"><span id="char147"> </span></a><a href="javascript:charClicked(148);"><span id="char148">6</span></a><a href="javascript:charClicked(149);"><span id="char149">0</span></a><a href="javascript:charClicked(150);"><span id="char150"> </span></a><a href="javascript:charClicked(151);"><span id="char151">s</span></a><a href="javascript:charClicked(152);"><span id="char152">e</span></a><a href="javascript:charClicked(153);"><span id="char153">c</span></a><a href="javascript:charClicked(154);"><span id="char154">o</span></a><a href="javascript:charClicked(155);"><span id="char155">n</span></a><a href="javascript:charClicked(156);"><span id="char156">d</span></a><a href="javascript:charClicked(157);"><span id="char157">s</span></a><a href="javascript:charClicked(158);"><span id="char158">
+</span></a></p>
+
+			</div>
+			
+			<div id="sidebar">
+						
+				<h4>AUDIO</h4>
+				<div id="audioContainer">
+					<div id="volumeTrack" class="hide">
+						<p>Volume</p>
+						<div id="volumeSlider"></div>
+					</div>
+				</div>
+
+				<h4>VIDEO</h4>
+				<div id="videoContainer">
+				<p class="nomedia">No video</p><div class="ghinda-video-player simpledark">
+					<video id="movie1" src="recording.mp4" width="243" height="183" preload controls 			onerror="fallback()">
+					<div id="movie1fallback" style="width:243px;height:183px;"></div>
+					</video>
+				</div>
+				</div> <!-- videoContainer -->
+
+				<h4>SLIDES</h4>
+				<div id="slidesContainer">
+
+					<p class="nomedia">No slides</p>
+					<a id="bottomLink" href="http://www.usefulfruit.com/pearnote/" target="_blank">Useful Fruit</a>
+				</div><!-- slidesContainer -->
+
+			</div> <!-- sidebar -->
+
+		</div> <!-- contentWrapper -->
+		
+		<div id="footer">
+		
+			<div id="metaData">
+			
+				<ul>
+				<li class="noteDate">Notes from May 18, 2018</li>
+				<li class="noteCharacters">Characters: 166</li>
+				<li class="noteRecorded">Recorded: 0:01:02</li>
+				</ul>
+				
+			</div><!-- metaData -->
+			
+			<div id="metaDownload">
+			
+				<p><a href="testNotes1.zip">Download the Master Pear Note File</a></p>
+			
+			</div><!-- metaDownload -->
+		
+		</div><!-- footer -->
+		
+	</div><!-- wrapper -->
+	<script type="text/javascript">
+		if (!document.createElement('video').canPlayType)
+			fallback();
+	</script>
+</body>
+</html>
+

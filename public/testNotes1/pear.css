@@ -1,0 +1,472 @@
+/* RESET */
+/* ----------------------------------------- */
+
+/* Global reset */
+/* Based upon 'reset.css' in the Yahoo! User Interface Library: http://developer.yahoo.com/yui */
+html, body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td { margin:0; padding:0 }
+table { border-collapse:collapse; border-spacing:0 }
+fieldset, img { border:0 }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal }
+caption, th { text-align:left }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal }
+q:before, q:after { content:''}
+
+/* Global reset-RESET */
+/* The below restores some sensible defaults */
+strong { font-weight:normal; }
+em { font-style:italic }
+a img { border:none } /* Gets rid of IE's blue borders */
+
+body{
+
+background-color: #666;
+font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+font-size: 12px;
+
+}
+
+body p{
+
+margin:0px 0 10px 0;
+
+}
+
+#wrapper{
+
+background-color: #404040;
+width:1022px;
+padding:0 1px 0 1px;
+height: 779px;
+margin:0 auto 40px auto;
+
+}
+
+#header{
+
+height:116px;
+
+}
+
+#controlsContainer{
+
+height: 74px;
+background: #333 url(images/BG-header.png) top left repeat-x;
+
+}
+
+
+#controls{
+
+width:191px;
+height:45px;
+float:left;
+margin:19px 0 0 13px;
+
+}
+
+#headerTitle{
+
+float:left;
+width:535px;
+padding:23px 40px 0 40px;
+text-align: center;
+}
+
+#headerTitle h3{
+
+color:#fff;
+font-size: 12px;
+
+}
+
+#headerTitle h2{color: #fff; font-weight: bold;}
+
+#webLink{
+
+display: block;
+width:185px;
+height: 40px;
+background: transparent url(images/logo-pear.png) top left no-repeat;
+text-indent: -9999px;
+text-decoration: none;
+float:right;
+margin:18px 18px 0 0;
+}
+
+#statusContainer{
+
+clear:both;
+height:40px;
+border-top:1px solid #fff;
+border-bottom: 1px solid #9b9b9b;
+background-color: #f1f1f1;
+
+}
+
+#statusBar{
+position: relative;
+
+width:995px;
+height:23px;
+background: transparent url(images/BG-playStatus.png) top left repeat-x;
+margin:8px 0 0 13px;
+
+}
+
+#statusBar-left{
+position: absolute;
+width:6px;
+height: 23px;
+top:0px;
+left:0px;
+background: transparent url(images/BG-playStatus-left.png) top left no-repeat;
+}
+
+#statusBar-right{
+position: absolute;
+width:6px;
+height: 23px;
+top:0px;
+right:0px;
+background: transparent url(images/BG-playStatus-right.png) top left no-repeat;
+}
+
+#footer{
+
+clear:both;
+height:28px;
+border-top:1px solid #9b9b9b;
+background-color: #dadada;
+}
+
+#bottomLink{
+
+display: block;
+width:68px;
+height: 72px;
+background: transparent url(images/logo-bottom-pear.png) top left no-repeat;
+text-indent: -9999px;
+text-decoration: none;
+float:right;
+position: absolute;
+bottom:18px;
+left:114px;
+}
+
+#textview{
+
+
+width:683px;
+float:left;
+height: 594px;
+padding:20px;
+overflow:auto;
+overflow-x: hidden;
+}
+
+
+#sidebar{
+
+position: relative;
+float:left;
+width:298px;
+border-left:1px solid #9b9b9b;
+height: 634px;
+background-color: #DADFE6;
+}
+
+
+#sidebar h4 {
+margin:20px 0 10px 20px;
+padding:0 0 0 15px;
+background: transparent url(images/arrow-title.png) 0 50% no-repeat;
+text-transform: uppercase;
+font-weight: bold;
+clear: both;
+}
+
+#sidebar h4, #sidebar p.nomedia {
+	font-size: 11px;
+	color: #707070;
+}
+
+#videoContainer, #slidesContainer{
+
+margin:0 25px 0 30px;
+
+}
+
+#audioContainer p.nomedia, #videoContainer p.nomedia, #slidesContainer p.nomedia {
+	position: absolute;
+	margin-top: -2px;
+	margin-left: 40px;
+	margin-right: auto;
+	margin-bottom: auto;
+	float: none;
+	width: auto;
+}
+
+#audioContainer p.nomedia {
+	padding-left: 30px;
+}
+
+#textview a {
+	text-decoration: none;
+	color: #000;
+}
+
+#contentWrapper {
+background-color: #fff;
+height:634px;
+}
+
+
+
+#slidescontrols {
+	margin:10px 0 0 0;
+	text-align: right;
+	color: #000;
+}
+
+#slideslink img {
+	border: none;
+}
+
+
+#metaData{width:723px; height:28px; float:left;}
+
+#metaData ul {
+	margin:0 0 0 13px;
+	padding: 0;
+}
+
+#metaData ol, #metaData ul, #metaData li { list-style:none }
+
+#metaData ul li{
+
+height: 28px;
+line-height: 28px;
+padding:0 0 0 16px;
+display: inline;
+margin:0 23px 0 0;
+color: #000;
+}
+
+#metaData ul li.noteDate{background: transparent url(images/icon-date.png) 0 50% no-repeat;}
+#metaData ul li.noteCharacters{background: transparent url(images/icon-characters.png) 0 50% no-repeat;}
+#metaData ul li.noteRecorded{background: transparent url(images/icon-recorded.png) 0 50% no-repeat;}
+
+#metaDownload{width:298px; height: 28px; float:left; line-height: 28px; text-align: center;}
+
+#metaDownload p a{
+text-decoration: none;
+background: transparent url(images/icon-download.png) 0 50% no-repeat;
+padding:0 0 0 16px;
+
+}
+
+#metaDownload p a:hover{text-decoration: underline;}
+
+
+
+/* flowplayer css */
+
+
+#theControls{
+
+position:relative;
+width:115px;
+height:45px;
+z-index:3000;
+
+}
+
+.play{
+
+
+width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-play.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+float: left;
+}
+
+div.play a{text-decoration: none; color:#fff;}
+
+
+div.paused a{text-decoration: none; color:#c1dfe0;}
+.paused{
+
+
+width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-play-inactive.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#C1DFE0;
+float: left;
+}
+
+
+div.pause a{
+
+
+width:38px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-pause.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+outline: none;
+text-decoration: none;
+float:left;
+}
+
+div.jump a{
+
+
+width:38px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-jump.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+float:left;
+outline: none;
+text-decoration: none;
+}
+
+#theControls .time{
+
+color:#000;
+top:68px;
+position: absolute;
+z-index:10;
+width:975px;
+padding:0 10px;
+left:0px;
+}
+
+.time span{
+color:#000;
+float:left;
+text-align:center;
+width:53px;
+}
+
+.time strong{
+
+float:right;
+color:#000;
+text-align:center;
+width:53px;
+}
+
+#theControls .track{
+
+width:850px;
+height: 7px;
+background: transparent url(images/stat-trackbar.png) top left repeat-x;
+position: absolute;
+top:72px;
+left:72px;
+z-index:18;
+cursor: pointer;
+border-left: #999 1px solid;
+border-right: #999 1px solid;
+}
+
+
+div.hide{
+
+display: none;
+
+}
+
+.mute{
+
+display: none;
+
+}
+
+.buffer{
+
+height: 7px;
+position: absolute;
+top:0px;
+background: transparent url(images/stat-buffer.png) top left repeat-x;
+z-index: 19;
+}
+
+.progress{
+
+height: 7px;
+position: absolute;
+top:0px;
+background: transparent url(images/stat-progress.png) top left repeat-x;
+z-index: 20;
+
+
+}
+
+.playhead{
+
+height: 2px;
+width:2px;
+padding: 6px;
+background: transparent url(images/item-playhead.png) top left no-repeat;
+cursor: pointer;
+position: absolute;
+top:-2px;
+left:0px;
+z-index: 21;
+
+}
+
+#audioContainer{height: 14px;}
+
+#audioContainer p{
+
+float:left;
+width:49px;
+margin: -5px 10px 0 0px;
+
+}
+
+#volumeTrack{
+
+height:14px;
+width:268px;
+margin:0 0px 0 30px;
+background: transparent url(images/BG-volume.png) 60px 1px no-repeat;
+}
+
+#volumeSlider{
+float:left;
+margin:0 0px 0 0;
+
+height:7px;
+width:175px;
+position: relative;
+cursor: pointer;
+
+}
+
+#volumeSlider a {
+
+position: absolute;
+top:-3px;
+cursor: pointer;
+display: block;
+width:2px;
+height: 2px;
+padding: 6px 6px 6px 6px;
+background: transparent url(images/item-playhead.png) top left no-repeat;
+}
+

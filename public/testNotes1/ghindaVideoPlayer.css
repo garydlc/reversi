@@ -1,0 +1,347 @@
+/*
+ * ghindaVideoPlayer - jQuery plugin 1.0.0
+ *
+ * Copyright (c) 2010 Cristian-Ionut Colceriu
+ *
+ * ghindaVideoPlayer.css
+ * Styles for the ghindaVideoPlayer
+ *
+ */
+
+/* base styles */
+.ghinda-video-player {}
+.ghinda-video-play, .ghinda-volume-button {
+	cursor: pointer;
+}
+.ghinda-video-timer {
+	cursor: default;
+}
+
+
+/* Start of simpledark default theme */
+.ghinda-video-player.simpledark {
+	position: relative;
+}
+
+.ghinda-video-player.simpledark .ghinda-video-controls {
+	position: relative;
+	padding-top: 5px;
+	float: left;
+	clear: both;
+	width: 100%;
+}
+
+.ghinda-video-player.simpledark .ghinda-video-play, .ghinda-video-player.simpledark .ghinda-video-seek, .ghinda-video-player.simpledark .ghinda-volume-box, .ghinda-video-timer {
+	float: left;
+}
+
+/* play, pause */
+.ghinda-video-player.simpledark .ghinda-video-play {
+	width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-play.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+position: absolute;
+top:-395px;
+left:-741px;
+
+
+}
+
+.ghinda-video-player.simpledark .ghinda-video-pause {
+	width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-pause.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+position: absolute;
+top:-395px;
+left:-702px;
+
+
+}
+
+.ghinda-video-player.simpledark .ghinda-video-jump {
+	width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-jump.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#fff;
+position: absolute;
+top:-395px;
+left:-664px;
+
+
+}
+
+.ghinda-video-player.simpledark .ghinda-paused-button {
+width:39px;
+height:19px;
+cursor: pointer;
+background: transparent url(images/button-play-inactive.png) top left no-repeat;
+padding:31px 0 0 0;
+text-align: center;
+color:#C1DFE0;
+float: left;
+
+}
+
+
+.ghinda-video-player.simpledark video {
+	float: left;
+}
+
+
+.ghinda-video-player.simpledark .ghinda-video-play:hover {	
+    opacity: 1;
+}
+
+/* seek */
+.ghinda-video-player.simpledark .ghinda-video-seek {
+width:890px;
+height: 7px;
+background: transparent url(images/stat-trackbar.png) top left repeat-x;
+position: absolute;
+top:-323px;
+left:-690px;
+z-index:18;
+cursor: pointer;
+border-left: #999 1px solid;
+border-right: #999 1px solid;}
+
+.ghinda-video-player.simpledark .ghinda-video-seek .ui-slider-handle {
+height: 2px;
+width:2px;
+padding: 6px;
+background: transparent url(images/item-playhead.png) top left no-repeat;
+cursor: pointer;
+top:-2px;
+z-index: 21;
+	
+}
+
+.ghinda-video-player.simpledark .ghinda-video-seek .ui-slider-handle.ui-state-hover {
+	
+}
+
+.ghinda-video-player.simpledark .ghinda-video-seek .ui-slider-range {
+	
+
+background: transparent url(images/stat-progress.png) top left repeat-x;
+
+
+
+}
+
+
+/* timer */
+.ghinda-video-player.simpledark .ghinda-video-timer {
+	color: #000;
+	font-size: 12px;
+	position: absolute;
+	top:-327px;
+	left:-733px;
+}
+
+.video-duration {
+	color: #000;
+	font-size: 12px;
+	position: absolute;
+	top:-327px;
+	left:211px;
+}
+
+
+/* volume */
+.ghinda-video-player.simpledark .ghinda-volume-box {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	overflow: hidden;
+	width: 20px;
+	height: 30px;
+	color: #fff;
+	padding: 0px 10px;
+	
+	-moz-transition: all 0.1s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.1s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.2s ease-in-out;  /* Opera */
+	transition: all 0.1s ease-in-out; 
+}
+
+.ghinda-video-player.simpledark .ghinda-volume-box:hover {	
+	height: 135px;
+	padding-top: 5px;
+}
+
+video{
+
+padding:0 0 15px 0;
+
+}
+
+#volContainer{
+
+position: absolute;
+top:-250px;
+left:0px;
+z-index:30;
+
+
+
+
+	
+
+
+
+}
+
+#volContainer p{
+
+float:left;
+
+}
+
+
+
+
+.ghinda-video-player.simpledark .ghinda-volume-slider {	
+	position: relative;
+	height: 7px;
+	width: 185px;
+	margin:5px 0 0 12px;
+	float:left;
+	background: transparent url(images/BG-volume.png) top left no-repeat;
+	
+	}
+
+.ghinda-video-player.simpledark .ghinda-volume-slider .ui-slider-handle {
+	position: absolute;
+top:-3px;
+cursor: pointer;
+display: block;
+width:2px;
+height: 2px;
+padding: 6px 6px 6px 6px;
+background: transparent url(images/item-playhead.png) top left no-repeat;
+
+}
+
+.ghinda-video-player.simpledark .ghinda-volume-slider .ui-slider-handle.ui-state-hover {
+
+}
+
+
+/* volume button */
+
+.ghinda-video-player.simpledark .ghinda-volume-button {
+	position: absolute;
+	bottom: 0px;
+	display: block;
+	width: 22px;
+	height: 22px;
+	background: url(images/volume-full-icon.png) no-repeat;
+	text-indent: -9999px;
+	
+	opacity: 0.8;
+}
+
+.ghinda-video-player.simpledark .ghinda-volume-button:hover {
+	opacity: 1;
+}
+
+.ghinda-video-player.simpledark .ghinda-volume-mute {
+	background: url(images/volume-mute-icon.png) no-repeat;
+}
+
+
+/* Start of smalldark child theme */
+
+.ghinda-video-player.smalldark {
+	padding: 0px;
+}
+
+.ghinda-video-player.smalldark video:hover + .ghinda-video-controls {
+	visibility: visible;
+	opacity: 0.7;
+}
+
+.ghinda-video-player.smalldark .ghinda-video-controls:hover {
+	visibility: visible;
+	opacity: 0.7;
+}
+
+.ghinda-video-player.smalldark .ghinda-video-controls {
+	position: absolute;
+	top: 150px;
+	left: 80px;
+	width: 320px;
+	padding: 10px;
+	
+	border: 1px solid #2E2E2E;
+	
+	-moz-border-radius: 5px; /* FF1+ */
+	-webkit-border-radius: 5px; /* Saf3+, Chrome */
+	border-radius: 5px; /* Opera 10.5, IE 9 */
+	
+	background: #000000;
+	background-image: -moz-linear-gradient(top, #313131, #000000); /* FF3.6 */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #313131),color-stop(1, #000000)); /* Saf4+, Chrome */
+	
+	opacity: 0;
+	visibility: hidden;
+	
+	box-shadow: inset 0 15px 35px #535353;
+	
+	-moz-transition: all 0.1s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.1s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.1s ease-in-out;  /* Opera */
+	transition: all 0.1s ease-in-out; 
+}
+
+.ghinda-video-player.smalldark .ghinda-video-seek {
+	width: 200px;
+}
+
+.ghinda-video-player.smalldark .ghinda-volume-box {
+	bottom: 10px;
+}
+
+.ghinda-video-player.smalldark .ghinda-volume-box:hover {	
+	height: 85px;	
+}
+
+.ghinda-video-player.smalldark .ghinda-volume-slider {
+	height: 50px;
+}
+
+/* needed jquery ui styles
+ * using these, we don't depend on jQuery UI's stylsheet
+ */
+.ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	display: block;
+	margin-left:-0.6em;
+	cursor: default;
+	outline: none;
+}
+
+.ui-slider-range {
+	
+	display:block;
+	width:100%;	
+	height:100%;
+	left:0;
+	bottom: 0;
+	border:0 none;
+	position:absolute;
+	z-index:1;
+}
