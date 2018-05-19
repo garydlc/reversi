@@ -85,7 +85,7 @@ io.sockets.on('connection', function(socket){
     */
     socket.on('join_room', function(payload){
         //log('received join_room command!!');
-        log('Server received command', '____join_room', payload);
+        log('Server received command', 'C_CMD: join_room', 'C_PAYLOAD: ' , payload);
 
         if(  ('undefined' === typeof payload) || !payload){
             var error_message = 'join room had no payload';
