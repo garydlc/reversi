@@ -18,6 +18,41 @@ if ('undefined' == typeof username || !username){
     username = 'Anonymous_' + Math.random();
 }
 
-console.log( username ) ;
-$('#messages').append('<h4>' + username + '</h4>');
 
+
+//console.log( username ) ;
+//Dont need I guess
+$('#nameId').append('<h4>' + username + '</h4>');
+
+
+var chatRoom = 'TheFirstRoom';
+
+
+/* Connect to the socket server*/
+var socket = io.connect();
+
+socket.on( 'log', function(array){
+    console.log.apply(console, array);
+});
+
+socket.on('join_room_response', function(payload){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+    
+    $('#messages').append('<p> New user joined the room: ' + payload.username + '</p>');
+});
+
+//jquery command to run when webpage has COMPLETELY loaded. 
+$(function(){
+    
+    var payload = {}; //payload of msg to send to server
+
+    payload.room        = chatRoom;     //set some elements in payload
+    payload.username    = username;
+    
+    console.log('*** Client Log Msg: \' join room\' payload: ' + JSON.stringify(payload));
+            //send payload to server with command join_room
+    socket.emit('join_room', payload);
+});
