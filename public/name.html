@@ -9,7 +9,7 @@
 
 
 <style>
-    body{
+    #header-row {
       background-image: url('assets/images/green.png');
     }
 </style>
@@ -19,37 +19,35 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-    <title>Lets Play</title>
+    <title>Enter your user name for Reversi</title>
+
+
   </head>
   <body>
     
     <div class="container-fluid text-center">
-      <div class="row">
+      <div class="row" id="header-row">
         <div class="col">
-          <h2>Let's Play</h2>
+          <h2>Enter your username</h2>
+          <h2></h2>
         </div>
       </div>
-      <div class="row">
-          <div class="col">
-            <a href="name.html" class="btn btn-lg btn-secondary">Lets Play</a>
-          </div>
-      </div>
 
       <div class="row">
           <div class="col">
-              <img class="img-fluid" src="assets/images/bottom-splash.png" alt="Reversi logo 2"/>
+
+          <form class='form-inline'>
+            <div class ='form-group'>
+              <label for='username' class='col-form-label sr-only'>Enter your username: </label>
+              <input id = 'username' class='form-control' type='text' value='' placeholder="Enter username here"></input>   
+            </div>
+            <button type='submit' class='btn btn-primary btn-default   ' >Done</button>
+          </form>
+
 
           </div>
-      </div>
-      
-      <div class="row">
-          <div class="col">
-              <a href="about.html" class="btn btn-lg btn-info">About</a>
-          </div>
-          <div class="col">
-              <a href="https://en.wikipedia.org/wiki/Reversi" class="btn btn-lg btn-info">Rules</a>
-          </div>
-      </div>
+        </div>
+
     </div>
 
     
