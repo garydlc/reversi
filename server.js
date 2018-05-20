@@ -144,5 +144,111 @@ io.sockets.on('connection', function(socket){
         io.sockets.in(room).emit('join_room_response', success_data);
         log('Room: ' + room + ' was just joined by  ' + username);
 
-    }); //end socket join_room     
+    }); //end socket join_room   
+    
+    /*  send_message command              */
+    /* payload:
+        {
+            'room': room to join,
+            'username': username of person joining,
+            'message': the message to send
+
+        }
+
+        join_room_response:
+        {
+            'result'    : 'success',
+            'username'  : username that joined,
+            'message': the msg spoken
+        }
+        or
+        {
+            'result': 'fail',
+            'message': failure message
+        }
+    */
+   socket.on('send_message', function(payload){
+    //log('received join_room command!!');
+    log('Server received command', 'C_CMD: send_message', 'C_PAYLOAD: ' , payload);
+
+    if(  ('undefined' === typeof payload) || !payload){
+        var error_message = 'send_message had no payload';
+        log(error_message);
+        socket.emit('send_message_response', {
+                                            result: 'fail',
+                                            message: error_message
+                                        });
+        return;
+    } //end if undefined
+
+    var room = payload.room;
+    if(  ('undefined' === typeof room) || !room){
+        var error_message = 'send_message didn\'t specify a room, ABORTED';
+        log(error_message);
+        socket.emit('send_message_response', {
+                                            result: 'fail',
+                                            message: error_message
+                                        });
+        return;
+    } //end if room ???
+
+    var username = payload.username;
+    if(  ('undefined' === typeof username) || !username){
+        var error_message = 'send_message didn\'t specify a username, ABORTED';
+        log(error_message);
+        socket.emit('send_message_response', {
+                                            result: 'fail',
+                                            message: error_message
+                                        });
+        return;
+    } //end if username ???
+
+    var message = payload.message;
+    if(  ('undefined' === typeof message) || !message){
+        var error_message = 'send_message didn\'t specify a message, ABORTED';
+        log(error_message);
+        socket.emit('send_message_response', {
+                                            result: 'fail',
+                                            message: error_message
+                                        });
+        return;
+    } //end if message ???  
+    
+    var success_data = {
+            result: 'success',
+            room: room,
+            username: username,
+            message: message
+    };
+    io.sockets.in(room).emit('send_message_response', success_data);
+    log('Message ['+message+'] sent to room ' + room + ' by  ' + username);
+
+/*
+    socket.join(room);   // JOIN ROOM JOIN ROOM JOIN ROOM
+
+    var roomObject = io.sockets.adapter.rooms[room];
+
+    if(  ('undefined' === typeof roomObject) || !roomObject){
+        var error_message = 'join_room couldn\'nt create a room (internal error),  ABORTED';
+        log(error_message);
+        socket.emit('join_room_response', {
+                                            result: 'fail',
+                                            message: error_message
+                                        });
+        return;
+    } //end if roomObject ???
+
+    var numClients = roomObject.length;
+    var success_data = {
+            result: 'success',
+            room: room,
+            username: username,
+            membership: (numClients + 1) //plus 1 for person that just joined
+    };
+
+    io.sockets.in(room).emit('join_room_response', success_data);
+    log('Room: ' + room + ' was just joined by  ' + username);
+    */
+}); //end socket send_message 
+
 }); //end io socket connection

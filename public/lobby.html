@@ -40,11 +40,21 @@
           <div class='col'>
             <h3> Messages: </h3>
             <div id="messages">
-              
             </div>
           </div>
       </div>
       <br/>
+      <div class='row' id='header-row-3'>
+          <div class='col'>
+            <form onsubmit='send_message(); return false; '>
+              <div class='form-group'>
+                <label for='send_message_holder' class='col-form-label sr-only' >Enter your chat message    </label>
+                <input class='form-control' type='text' value='' id='send_message_holder' placeholder='Enter your chat msg' />
+              </div>
+              <button type='submit' class='btn btn-default btn-primary'>Send</button>
+            </form>
+          </div>
+      </div>
       <div class='row' id='header-row-3'>
           <div class='col'>
             <h3> Username: </h3><div id="nameId"></div>
