@@ -22,7 +22,7 @@ if ('undefined' == typeof username || !username){
 
 //console.log( username ) ;
 //Dont need I guess
-$('#nameId').append('<h4>' + username + '</h4>');
+//$('#nameId').append('<h4>' + username + '</h4>');
 
 
 var chatRoom = 'TheFirstRoom';
