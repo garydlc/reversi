@@ -50,7 +50,7 @@ socket.on('send_message_response', function(payload){
         return;
     }
     
-    $('#messages').append('<p> *(From server) User ' + payload.username + ' says: <b>' + payload.message + '</b></p>');
+    $('#messages').append('<p> User ' + payload.username + ' says: <b>' + payload.message + '</b></p>');
 }); //end socket send_message response
 
 function send_message(){
