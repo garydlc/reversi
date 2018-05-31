@@ -33,16 +33,22 @@ var app = http.createServer(
         }
     ).listen(port);
 
-    console.log('The Server is running v10');
+    console.log('The Server is running v8.0');
     console.log('The port '         + port);
     console.log('The directory'     + directory );
 
 /***********************************************/
 /*            Set up the web socket server */
+/* A registry of socket_ids and player information */
+var players = [];
+
 
 var io = require('socket.io').listen(app);
 
 io.sockets.on('connection', function(socket){
+    
+    log('Client connection by ' + socket.id);
+        
     function log(){
         var array = ['*** Server log message: '];
 
@@ -55,12 +61,7 @@ io.sockets.on('connection', function(socket){
         socket.broadcast.emit('log', array);
     } //close log
 
-    
-    log('A website connected to server');
 
-    socket.on('disconnect', function(socket){
-        log('A website disconnected from server');
-    }); //end socket disconnect
     
 
     /*  join_room command              */
@@ -75,6 +76,7 @@ io.sockets.on('connection', function(socket){
             'result'    : 'success',
             'room'      : room joined,
             'username'  : username that joined,
+            'socket_id' : the socket id of the person that, 
             'membership': num of ppl in the room, including new one
         }
         or
@@ -83,10 +85,13 @@ io.sockets.on('connection', function(socket){
             'message': failure message
         }
     */
+
     socket.on('join_room', function(payload){
         //log('received join_room command!!');
-        log('Server received command', 'C_CMD: join_room', 'C_PAYLOAD: ' , payload);
+        //log('Server received command', 'C_CMD: join_room', 'C_PAYLOAD: ' , payload);
+        log('Server received \'join_room\' command' + JSON.stringify(payload));
 
+        /* Check that the client sent a payload */
         if(  ('undefined' === typeof payload) || !payload){
             var error_message = 'join room had no payload';
             log(error_message);
@@ -97,6 +102,7 @@ io.sockets.on('connection', function(socket){
             return;
         } //end if undefined
 
+        /* Check that the payload has a room to join */
         var room = payload.room;
         if(  ('undefined' === typeof room) || !room){
             var error_message = 'join_room didn\'t specify a room, ABORTED';
@@ -106,8 +112,9 @@ io.sockets.on('connection', function(socket){
                                                 message: error_message
                                             });
             return;
-        } //end if room ???
+        } //end if room 
 
+        /*  Check that a username has been provided */
         var username = payload.username;
         if(  ('undefined' === typeof username) || !username){
             var error_message = 'join_room didn\'t specify a username, ABORTED';
@@ -117,12 +124,21 @@ io.sockets.on('connection', function(socket){
                                                 message: error_message
                                             });
             return;
-        } //end if username ???
+        } //end if username
 
+        /* Store information about this new player */
+        players[socket.id] = {};
+        players[socket.id].username = username;
+        players[socket.id].room     = room;
+
+
+        /* Actually have the user join the room */
         socket.join(room);   // JOIN ROOM JOIN ROOM JOIN ROOM
 
+        /* Get the room object */
         var roomObject = io.sockets.adapter.rooms[room];
 
+        /* DELETE THIS CODE - we will have a roomObject
         if(  ('undefined' === typeof roomObject) || !roomObject){
             var error_message = 'join_room couldn\'nt create a room (internal error),  ABORTED';
             log(error_message);
@@ -132,20 +148,56 @@ io.sockets.on('connection', function(socket){
                                             });
             return;
         } //end if roomObject ???
+        */
 
+        /* Tell everyone that is already in the room that someone just joined */
         var numClients = roomObject.length;
         var success_data = {
-                result: 'success',
-                room: room,
-                username: username,
-                membership: (numClients + 1) //plus 1 for person that just joined
+                result:     'success',
+                room:       room,
+                username:   username,
+                socket_id:  socket.id,
+                membership: numClients
         };
 
-        io.sockets.in(room).emit('join_room_response', success_data);
-        log('Room: ' + room + ' was just joined by  ' + username);
+        io.in(room).emit('join_room_response', success_data);
+
+        /* Notify the user of people already in the room - get him up to speed */
+        for(var socket_in_room in roomObject.sockets){
+            var success_data = {
+                result:     'success',
+                room:       room,
+                username:   players[socket_in_room].username,
+                socket_id:  socket_in_room,
+                membership: numClients                
+            };
+            socket.emit('join_room_response', success_data); //send to every user in room
+        } //end for
+
+        log('join_room success - Room: ' + room + ' was just joined by  ' + username);
 
     }); //end socket join_room   
-    
+
+    socket.on('disconnect', function(){
+
+        log('Client disconnected ' + JSON.stringify(players[socket.id]) + 'A website disconnected from server');
+
+        if ('undefined' !== typeof players[socket.id] && players[socket.id] ){
+            var username = players[socket.id].username;
+            var room     = players[socket.id].room;
+            
+            var payload = {
+                username: username,
+                socket_id: socket.id
+            };
+
+            delete players[socket.id];
+            io.in(room).emit('player_disconnected', payload);
+        }
+
+    }); //end socket disconnect    
+
+
     /*  send_message command              */
     /* payload:
         {
