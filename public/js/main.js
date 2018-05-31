@@ -1,3 +1,4 @@
+//GARY
 /* functions for general use*/
 
 function GetURLParameters(whichParam){
