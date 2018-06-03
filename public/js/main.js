@@ -39,23 +39,23 @@ var socket = io.connect();
 //Handle server response messages
 //Server originated messages
 /*
-join_room_response
-invite_response
-invited
-uninvited_response
-uninvited
-game_start_response
-send_message_response
-log
-disconnect
+1 join_room_response
+2 invite_response
+3 invited
+4 uninvite_response
+5 uninvited
+6 game_start_response
+7 send_message_response
+8 log
+9 player_disconnected
 */
 
-//response 1 - What do do when server sends me a lot message
+//response 8 - What do do when server sends me a lot message
 socket.on( 'log', function(array){
     console.log.apply(console, array);
 });
 
-//response 2 - What to do when server responds that someone joined a room
+//response 1 - What to do when server responds that someone joined a room
 socket.on('join_room_response', function(payload){
     if (payload.result == 'fail'){
         alert(payload.message);
@@ -88,7 +88,7 @@ socket.on('join_room_response', function(payload){
         nodeB.append('<h4>' + payload.username + '</h4>');
 
         nodeC.addClass('col-3 text-left');
-        var buttonC = makeInviteButton();
+        var buttonC = makeInviteButton(payload.socket_id);
         nodeC.append(buttonC);
 
         nodeA.hide();
@@ -114,13 +114,12 @@ socket.on('join_room_response', function(payload){
                     */
         
     }
-    else{ //else if user is already is this table
-        var buttonC = makeInviteButton();
+    else{ //else if user is already is this table (something weird happened)
+        uninvite(payload.socket_id);
+        var buttonC = makeInviteButton(payload.socket_id);
         $('.socket_' + payload.socket_id + ' button').replaceWith(buttonC);
         dom_elements.slideDown(1000);
     } //end     if (dom_elements.length == 0){
-
-
 
     /*Manage the message that 'a new player has joined'*/
     var newHTML = '<p>' + payload.username + ' just entered the lobby</p>';
@@ -130,7 +129,7 @@ socket.on('join_room_response', function(payload){
     newNode.slideDown(1000);
 }); //end socket join_room response
 
-//response 2.5 - NEW what to do when someone has left. opposite of join
+//response 9 - NEW what to do when someone has left. opposite of join
 socket.on('player_disconnected', function(payload){
     if (payload.result == 'fail'){
         alert(payload.message);
@@ -142,10 +141,10 @@ socket.on('player_disconnected', function(payload){
         return; //just ignore
     }
 
-    /* If someone has left room then animate all thier content. */
+    /* If someone has left room then animate out all thier content. */
     var dom_elements = $('.socket_' + payload.socket_id);
 
-    /* If we don't already have entry in this table for this person, then create default elements divs  */
+    /* if something exitsts.  */
     if (dom_elements.length != 0){
       dom_elements.slideUp(1000);  
     }
@@ -159,16 +158,164 @@ socket.on('player_disconnected', function(payload){
 
 }); //end socket player_disconnected response
 
-//response 3
+//invitation capability. click invite button, go here and send message to server. 
+function invite(who) {
+    var payload             = {};
+    payload.requested_user  = who; //this is a socket
+
+    console.log('*** Client Log Message: \'invite\' payload: ' + JSON.stringify(payload));
+    socket.emit('invite', payload);
+}
+
+//response 2 - the response to me inviting someone else
+socket.on('invite_response', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makeInvitedButton(payload.socket_id);
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+    //$('#messages').append('invited response received!!!!!!' );
+}); //end invite response
+
+//response 3 - Handle a notification that we have been invited. Someone else invited me
+socket.on('invited', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makePlayButton(payload.socket_id);
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+    //$('#messages').append('invited response received!!!!!!' );
+}); //end invited response
+
+////////////////////////
+//uninvite capability. click invited button,  send uninvite message to server. 
+function uninvite(who) {
+    var payload             = {};
+    payload.requested_user  = who; //this is a socket
+
+    console.log('*** Client Log Message: \'uninvite\' payload: ' + JSON.stringify(payload));
+    socket.emit('uninvite', payload);
+}
+
+//response 4 - the response to me uninviting someone else
+socket.on('uninvite_response', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makeInviteButton(payload.socket_id);
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+    //$('#messages').append('invited response received!!!!!!' );
+}); //end uninvited response
+
+//response 5 - someone else uninvited me. Handle a notification that we have been uninvited
+socket.on('uninvited', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makeInviteButton(payload.socket_id);
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+}); //end uninvited
+///////////////////////
+///////////////////////
+//Send a game start mesage to the server
+function game_start(who) {
+    var payload             = {};
+    payload.requested_user  = who; //this is a socket
+
+    console.log('*** Client Log Message: \'game_start\' payload: ' + JSON.stringify(payload));
+    socket.emit('game_start', payload);
+}
+
+//response 6 - Handle a notification that we have been engaged.
+socket.on('game_start_response', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makeEngagedButton();
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+
+    /* Jump to a new page */
+    window.location.href = 'game.html?username=' + username + '&game_id=' + payload.game_id;
+    
+}); //end game_start_response
+///////////////////////
+
+function send_message(){
+    var payload={};
+    payload.room        = chat_room;
+    //payload.username    = username;
+    payload.message     = $('#send_message_holder').val();
+    console.log('*** Client Log Message: \' send message \' payload: '+ JSON.stringify(payload));
+    socket.emit('send_message', payload);
+}
+
+//response 7
 socket.on('send_message_response', function(payload){
     if (payload.result == 'fail'){
         alert(payload.message);
         return;
     }
     
-    $('#messages').append('<p> User <b> ' + payload.username + ' </b>says: ' + payload.message + '</p>');
+    var newHTML =  '<p><b> ' + payload.username + ' </b>says: ' + payload.message + '</p>';
+    var newNode = $(newHTML);
+    newNode.hide();
+    $('#messages').append(newNode);
+    newNode.slideDown(1000);
+
 }); //end socket send_message response
 
+
+///////////////////////////
+//send a game start message to server
+function game_start(who) {
+    var payload             = {};
+    payload.requested_user  = who; //this is a socket
+
+    console.log('*** Client Log Message: \'game_start\' payload: ' + JSON.stringify(payload));
+    socket.emit('game_start', payload);
+}
+
+//response6 - the response to me uninviting someone else
+socket.on('uninvite_response', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    var newNode = makeInviteButton(payload.socket_id);
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+    //$('#messages').append('invited response received!!!!!!' );
+}); //end uninvited response
+
+//response 5 - someone else uninvited me. Handle a notification that we have been uninvited
+socket.on('uninvited', function(payload ){
+    if (payload.result == 'fail'){
+        alert(payload.message);
+        return;
+    }
+
+    //alert('gary got uninviteD response - someone else uninvited MEEEEEE');    
+    var newNode = makeInviteButton(payload.socket_id);
+
+    $('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+    
+}); //end uninvited
+///////////////////////////
 
 //Client originated messages
 /*
@@ -180,21 +327,39 @@ game_start
 send_message
 
 */
-function send_message(){
-    var payload={};
-    payload.room        = chat_room;
-    payload.username    = username;
-    payload.message     = $('#send_message_holder').val();
-    console.log('*** Client Log Message: \' send message \' payload: '+ JSON.stringify(payload));
-    socket.emit('send_message', payload);
-}
 
-function makeInviteButton(){
+function makeInviteButton(socket_id){
     var newHTML = '<button type=\'button\' class=\' btn btn-outline-primary\'> Invite ' + '</button>';
     var newNode = $(newHTML);
+    newNode.click(function(){
+        invite(socket_id);
+    });
     return (newNode);
 }
 
+function makeInvitedButton(socket_id){
+    var newHTML = '<button type=\'button\' class=\' btn btn-primary\'> Invited ' + '</button>';
+    var newNode = $(newHTML);
+    newNode.click(function(){
+        uninvite(socket_id);
+    });    
+    return (newNode);
+}
+
+function makePlayButton(socket_id){
+    var newHTML = '<button type=\'button\' class=\' btn btn-success\'> Play Now ' + '</button>';
+    var newNode = $(newHTML);
+    newNode.click(function(){
+        game_start(socket_id);
+    });        
+    return (newNode);
+}
+
+function makeEngagedButton(){
+    var newHTML = '<button type=\'button\' class=\' btn btn-danger\'> Engaged ' + '</button>';
+    var newNode = $(newHTML);
+    return (newNode);
+}
 
 //jquery command to run when webpage has COMPLETELY loaded. 
 $(function(){
