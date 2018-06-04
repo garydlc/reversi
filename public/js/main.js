@@ -439,8 +439,12 @@ socket.on('game_update', function(payload){
             //if a board space has changed
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
-                    //put an empty element in there, went from question mark to space
-                    $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/empty.gif" alt="empty square"/>');
+                    if (((row * 8) + (column + 1 + (row%2))) % 2){
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif" alt="empty square"/>');
+                    }
+                    else{
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif" alt="empty square"/>');                            
+                    }                                                                                                
                 }
                 else if (old_board[row][column] == '?' && board[row][column] == 'w'){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif" alt="white"/>');                    
