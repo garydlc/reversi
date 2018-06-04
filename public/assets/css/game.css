@@ -24,6 +24,10 @@ table#game_board td{
     z-index: -1; position:relative;
 }
 
+.bottomGif{
+    z-index: -2; position:relative;
+}
+
 td.hovered_over:hover{
     background:url('../images/hover.gif') top;
     background-size: 100% 100%;

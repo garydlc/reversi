@@ -445,7 +445,7 @@ socket.on('game_update', function(payload){
                     else{
                         $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif" alt="empty square"/>');                            
                     } */                 
-                    $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/empty.gif" alt="empty square"/>');                            
+                    $('#' + row + '_' + column).html('<img class="bottomGif" src="assets/images/empty.gif" alt="empty square"/>');                            
                                                                                                   
                 }
                 else if (old_board[row][column] == '?' && board[row][column] == 'w'){
