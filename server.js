@@ -706,6 +706,38 @@ io.sockets.on('connection', function(socket){
 /* This is code related to game state */
 var games = [];
 
+function create_new_game22(){
+    var new_game = {};
+    new_game.player_white = {};
+    new_game.player_black = {};
+
+    new_game.player_white.socket = '';
+    new_game.player_white.username = '';
+
+    new_game.player_black.socket = '';
+    new_game.player_black.username = '';    
+
+    var d                       = new Date();
+    new_game.last_move_time     = d.getTime();
+
+    new_game.whose_turn = 'white';
+    new_game.board = [
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' '],   //0
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' '], 
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' '], 
+                    [' ', ' ', ' ', 'b',   'w', ' ', ' ', ' '],   //3
+                    [' ', ' ', ' ', 'w',   'b', ' ', ' ', ' '],   //4
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' '], 
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' '], 
+                    [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' ']    //7
+                    
+
+                    ];
+
+    return new_game;
+}
+
+
 function create_new_game(){
     var new_game = {};
     new_game.player_white = {};

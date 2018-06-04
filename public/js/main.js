@@ -439,12 +439,14 @@ socket.on('game_update', function(payload){
             //if a board space has changed
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
-                    if (((row * 8) + (column + 1 + (row%2))) % 2){
+                    /*if (((row * 8) + (column + 1 + (row%2))) % 2){
                         $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif" alt="empty square"/>');
                     }
                     else{
                         $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif" alt="empty square"/>');                            
-                    }                                                                                                
+                    } */                 
+                    $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/empty.gif" alt="empty square"/>');                            
+                                                                                                  
                 }
                 else if (old_board[row][column] == '?' && board[row][column] == 'w'){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif" alt="white"/>');                    
@@ -501,118 +503,216 @@ socket.on('game_update', function(payload){
         }
     } //end of master for loop
 
-    if (blacksum == 0 && whitesum == 0 || true){
+    if (blacksum == 2 && whitesum == 2 ){
         setTimeout(function(){
             return function(){
-                //$('#0_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#0_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');                                                                                    
+                $('#2_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+                $('#2_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
+                $('#2_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+                $('#2_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
+
+                $('#3_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+                $('#4_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
+                $('#5_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+
+                $('#5_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');                                                                                    
+                $('#5_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+                $('#5_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
+
+                $('#4_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
+                $('#3_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');             
             }}(),
-            2000
-        );        
+            200
+        );  
+              
         setTimeout(function(){
             return function(){
-               // $('#1_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#1_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');                                                                                    
+                $('#1_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#1_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#1_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#1_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#1_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#1_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+
+                $('#2_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#3_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#4_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#5_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#6_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                                               
+                $('#6_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#6_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#6_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#6_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');                
+                $('#6_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                
+                $('#5_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#4_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                $('#3_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');                
+                $('#2_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
+                
             }}(),
-            2100
+            500
         );
-        
+
         setTimeout(function(){
             return function(){
-               // $('#2_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
-                $('#2_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');                                                                                    
+                $('#0_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');                
+                $('#0_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#0_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#0_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                //$('#0_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#0_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#0_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#0_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+
+
+                $('#1_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#2_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#3_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#4_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#5_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#6_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');                
+                $('#7_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+
+                $('#7_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');                
+                $('#7_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#7_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#7_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#7_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+               // $('#7_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#7_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+
+                $('#6_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#5_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#4_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#3_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                $('#2_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+                $('#1_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');                
             }}(),
-            2200
+            800
+        );        
+       
+        /*
+        setTimeout(function(){
+            return function(){
+                $('#2_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=c" alt="empty square"/>');
+               // $('#2_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=c" alt="empty square"/>');
+                $('#2_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=c" alt="empty square"/>');                                                                                    
+            }}(),
+            300
         );//end setTImeout   
 
         setTimeout(function(){
             return function(){
-                //$('#3_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
-                $('#3_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
+                $('#3_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
+                $('#3_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=d" alt="empty square"/>');
                 $('#3_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
-                $('#3_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
-                $('#3_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
-                $('#3_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
+               // $('#3_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
+                //$('#3_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
+                $('#3_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=d" alt="empty square"/>');
                 $('#3_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');
-                $('#3_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=d" alt="empty square"/>');                                                                                    
+                $('#3_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=d" alt="empty square"/>');                                                                                    
             }}(),
-            2300
+            400
         );        
         
         setTimeout(function(){
             return function(){
-               // $('#4_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#4_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#4_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
                 $('#4_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+               // $('#4_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                //$('#4_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
+                $('#4_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
                 $('#4_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');                                                                                    
+                $('#4_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');                                                                                    
             }}(),
-            2400
+            500
         );//end setTImeout   
         
         setTimeout(function(){
             return function(){
-                //$('#5_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
-                $('#5_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
+                $('#5_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
+                $('#5_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=r" alt="empty square"/>');
                 $('#5_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
-                $('#5_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
+                $('#5_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=r" alt="empty square"/>');
                 $('#5_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
-                $('#5_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
+                //$('#5_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=r" alt="empty square"/>');
                 $('#5_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');
-                $('#5_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=r" alt="empty square"/>');                                                                                    
+                $('#5_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=r" alt="empty square"/>');                                                                                    
             }}(),
-            2500
+            600
         );    
         
         setTimeout(function(){
             return function(){
-               // $('#6_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
-                $('#6_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
+                $('#6_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
+                $('#6_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=6" alt="empty square"/>');
                 $('#6_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
-                $('#6_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
+                $('#6_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=6" alt="empty square"/>');
                 $('#6_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
-                $('#6_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
-                $('#6_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
-                $('#6_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');                                                                                    
+                $('#6_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=6" alt="empty square"/>');
+               // $('#6_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=6" alt="empty square"/>');
+                $('#6_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=6" alt="empty square"/>');                                                                                    
             }}(),
-            2600
+            700
         );//end setTImeout   
         
         setTimeout(function(){
             return function(){
-                //$('#7_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
-                $('#7_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
+                $('#7_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
+                $('#7_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=8" alt="empty square"/>');
                 $('#7_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
-                $('#7_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
+                $('#7_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=8" alt="empty square"/>');
                 $('#7_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
-                $('#7_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
+                $('#7_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=8" alt="empty square"/>');
                 $('#7_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');
-                $('#7_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=8" alt="empty square"/>');                                                                                    
+               // $('#7_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=8" alt="empty square"/>');                                                                                    
             }}(),
-            2700
-        );         
+            800
+        );     
+        */
+/*
+        setTimeout(function(){
+            return function(){
+                var payload = {};
+                if (my_color === 'black'){
+                    payload.row         = 0;
+                    payload.column      = 0;
+                    payload.color       = my_color;
+                    console.log('*** Crrrrrrrrrrrlient log message: \'play_token\' payload: ' + JSON.stringify(payload));
+                    socket.emit('play_token', payload);
 
+                    payload.column      = 1;           
+                    socket.emit('play_token', payload);
+                    
+                    payload.column      = 2;           
+                    socket.emit('play_token', payload);                
+                }
+                else{
+                    payload.row         = 6;
+                    payload.column      = 6;
+                    payload.color       = my_color;
+                    console.log('*** Crrrrrrrrrrrlient log message: \'play_token\' payload: ' + JSON.stringify(payload));
+                    socket.emit('play_token', payload);
+
+                    payload.column      = 5;           
+                    socket.emit('play_token', payload);
+                    
+                    payload.column      = 4;           
+                    socket.emit('play_token', payload);                      
+                }
+            }}(),
+            5000
+        );     
+        */        
+                        
      }
 
     $('#blacksum').html(blacksum);
