@@ -427,6 +427,9 @@ socket.on('game_update', function(payload){
     var whitesum = 0;
     var row, column;
 
+    var randomNum = Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
+    
+
     for(row = 0; row < 8; row++){
         for (column = 0; column < 8; column++){
 
@@ -440,10 +443,10 @@ socket.on('game_update', function(payload){
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
                     if (((row * 8) + (column + 1 + (row%2))) % 2){
-                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif" alt="empty square"/>');
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a='+randomNum+'" alt="empty square"/>');
                     }
                     else{
-                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif" alt="empty square"/>');                            
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a='+randomNum+'" alt="empty square"/>');                            
                     }                  
 
                     //$('#' + row + '_' + column).html('<img class="bottomGif" src="assets/images/empty.gif" alt="empty square"/>');                            
