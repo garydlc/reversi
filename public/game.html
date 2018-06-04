@@ -9,25 +9,9 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
 
     <title>Reversi</title>
-
-     
     <link rel='stylesheet' type='text/css' href='assets/css/game.css'/>
    
-
-    <!--Removed styles
-            .garyTable1{
-          border: thin solid red
-        }
-        .garyTable2{
-          border: thin solid green
-        }
-        .garyTable3{
-          border: thin solid black
-        }       
-    -->
-
     <script>
-  
     </script>
 
     <!-- Bootstrap CSS -->
@@ -39,27 +23,24 @@
      
       <div class='row' id='color-row'>
             <div class='offset-2 col text-center' id='colorId'>
-              <h3 id='my_color'>my color here</h3>
+              <h3 id='my_color'></h3>
             </div>
             <div class='col-2'>
-                <div id ='quit'>quit</div>
+                <div id ='quit'></div>
             </div>
       </div>
 
       <div class='row' >
             <div class='col'>
-                <span class='align-middle' id='whitesum'>
-                    <img src='assets/images/empty_to_white.gif' alt='white score'/>
-                </span>
-                <span class='align-middle' id='blacksum'>
-                    <img src='assets/images/empty_to_black.gif' alt='black score'/>
-                  </span>                    
+                <span class='align-middle scores' id='whitesum'></span>
+                <img src='assets/images/empty_to_white.gif' alt='white score'/>
+                <img src='assets/images/empty_to_black.gif' alt='black score'/>
+                <span class='align-middle scores' id='blacksum'>  </span>              
             </div>
       </div>
 
       <div class='row' >
           <div class='col' id='game_over'>
-            game over
           </div>
       </div>            
 

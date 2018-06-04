@@ -28,3 +28,13 @@ td.hovered_over:hover{
     background:url('../images/hover.gif') top;
     background-size: 100% 100%;
 }
+
+.scores {
+    display: inline-block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0.83em;
+    margin-right: 0.83em;
+    font-weight: bold;
+}
