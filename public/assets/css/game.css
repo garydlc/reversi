@@ -10,7 +10,7 @@ table#game_board{
 }
 
 table#game_board td{
-    padding: 5px;
+    padding: 0px;
     border-style: solid;
     border-width: 1px;
     border-color: rgb(50, 50, 50);    
@@ -18,4 +18,13 @@ table#game_board td{
 
 #messages p{
     margin: 0px;
+}
+
+.emptyGif{
+    z-index: -1; position:relative;
+}
+
+td.hovered_over:hover{
+    background:url('../images/hover.gif') top;
+    background-size: 100% 100%;
 }

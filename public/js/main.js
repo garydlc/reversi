@@ -122,10 +122,10 @@ socket.on('join_room_response', function(payload){
     } //end     if (dom_elements.length == 0){
 
     /*Manage the message that 'a new player has joined'*/
-    var newHTML = '<p>' + payload.username + ' just entered the lobby</p>';
+    var newHTML = '<p>' + payload.username + ' just entered the room</p>';
     var newNode = $(newHTML);
     newNode.hide();
-    $('#messages').append(newNode);
+    $('#messages').prepend(newNode);
     newNode.slideDown(1000);
 }); //end socket join_room response
 
@@ -150,10 +150,10 @@ socket.on('player_disconnected', function(payload){
     }
 
     /*Manage the message that 'a new player has joined'*/
-    var newHTML = '<p>' + payload.username + ' has left the lobby</p>';
+    var newHTML = '<p>' + payload.username + ' has left the room</p>';
     var newNode = $(newHTML);
     newNode.hide();
-    $('#messages').append(newNode);
+    $('#messages').prepend(newNode);
     newNode.slideDown(1000);
 
 }); //end socket player_disconnected response
@@ -257,10 +257,10 @@ socket.on('game_start_response', function(payload ){
 function send_message(){
     var payload={};
     payload.room        = chat_room;
-    //payload.username    = username;
     payload.message     = $('#send_message_holder').val();
     console.log('*** Client Log Message: \' send message \' payload: '+ JSON.stringify(payload));
     socket.emit('send_message', payload);
+    $('#send_message_holder').val('');    
 }
 
 //response 7
@@ -273,7 +273,7 @@ socket.on('send_message_response', function(payload){
     var newHTML =  '<p><b> ' + payload.username + ' </b>says: ' + payload.message + '</p>';
     var newNode = $(newHTML);
     newNode.hide();
-    $('#messages').append(newNode);
+    $('#messages').prepend(newNode);
     newNode.slideDown(1000);
 
 }); //end socket send_message response
@@ -383,6 +383,9 @@ var old_board =[
                     ['?', '?', '?', '?', '?', '?', '?', '?'],
                     ['?', '?', '?', '?', '?', '?', '?', '?']                    
                 ];
+
+var my_color = ' ';
+
 socket.on('game_update', function(payload){
     console.log('*** Client log message: game_update \'n payload: ' + JSON.stringify(payload));
     //check for a good board update
@@ -402,6 +405,20 @@ socket.on('game_update', function(payload){
     }
 
     //update my color
+    if(socket.id == payload.game.player_white.socket){
+        my_color = 'white';
+    }
+    else if(socket.id == payload.game.player_black.socket){
+        my_color = 'black';
+    }
+    else{
+        //something weird is going on
+        //send client back to lobby. 
+        window.location.href = 'lobby.html?username=' + username;
+        return;
+    }
+
+    $('#my_color').html('<h3 id="my_color"> I am ' + my_color + '</h3>');
 
     //animate changes to the board
     var row, column;
@@ -411,7 +428,7 @@ socket.on('game_update', function(payload){
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
                     //put an empty element in there, went from question mark to space
-                    $('#' + row + '_' + column).html('<img src="assets/images/empty.gif" alt="empty square"/>');
+                    $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/empty.gif" alt="empty square"/>');
                 }
                 else if (old_board[row][column] == '?' && board[row][column] == 'w'){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif" alt="white"/>');
@@ -439,7 +456,29 @@ socket.on('game_update', function(payload){
                 }      
                 else{
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="error"/>');
-                }                                                                          
+                }        
+                
+                //set up interactivity
+                $('#' + row + '_' + column).off('click');
+
+                //closure function attached to the square
+                if(board[row][column] == ' '){
+                    $('#' + row + '_' + column).addClass('hovered_over');
+                    $('#' + row + '_' + column).click(function(r,c){
+                        return function(){
+                            var payload = {};
+                            payload.row         = r;
+                            payload.column      = c;
+                            payload.color       = my_color;
+                            console.log('*** Client log message: \'play_token\' payload: ' + JSON.stringify(payload));
+                            socket.emit('play_token', payload);
+                        };
+                    }(row, column));
+                    
+                }
+                else{
+                    $('#' + row + '_' + column).removeClass('hovered_over');
+                }
             }
         }
     } //end of master for loop
@@ -447,3 +486,15 @@ socket.on('game_update', function(payload){
     old_board = board;
 
 }); //end of socket game_update
+
+
+socket.on('play_token_response', function(payload){
+    console.log('*** Client log message: play_token_response \'n payload: ' + JSON.stringify(payload));
+    //check for a good play token response
+
+    if (payload.result == 'fail'){
+        console.log(payload.message);
+        alert(payload.message);
+        return;
+    }
+});    

@@ -502,69 +502,203 @@ io.sockets.on('connection', function(socket){
    socket.on('game_start', function(payload){
     log('game_start with ' + JSON.stringify(payload));
 
-    if(  ('undefined' === typeof payload) || !payload){
-        var error_message = 'game_start had no payload';
-        log(error_message);
-        socket.emit('game_start_response', {
-                                            result: 'fail',
-                                            message: error_message
-                                        });
-        return;
-    } //end if undefined
+        if(  ('undefined' === typeof payload) || !payload){
+            var error_message = 'game_start had no payload';
+            log(error_message);
+            socket.emit('game_start_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if undefined
 
-    var username = players[socket.id].username; //username of requestor
+        var username = players[socket.id].username; //username of requestor
 
-    if(  ('undefined' === typeof username) || !username){
-        var error_message = 'game_start cant identify who sent the invite request, ABORTED';
-        log(error_message);
-        socket.emit('game_start_response', {
-                                            result: 'fail',
-                                            message: error_message
-                                        });
-        return;
-    } //end if username
+        if(  ('undefined' === typeof username) || !username){
+            var error_message = 'game_start cant identify who sent the invite request, ABORTED';
+            log(error_message);
+            socket.emit('game_start_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if username
 
-    var requested_user = payload.requested_user;
-    if(  ('undefined' === typeof requested_user) || !requested_user){
-        var error_message = 'game_start didn\'t specify a requested_user, ABORTED';
-        log(error_message);
-        socket.emit('uninvite_response', {
-                                            result: 'fail',
-                                            message: error_message
-                                        });
-        return;
-    } //end if requested_user  
+        var requested_user = payload.requested_user;
+        if(  ('undefined' === typeof requested_user) || !requested_user){
+            var error_message = 'game_start didn\'t specify a requested_user, ABORTED';
+            log(error_message);
+            socket.emit('uninvite_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if requested_user  
 
-    var room            = players[socket.id].room;
-    var roomObject      = io.sockets.adapter.rooms[room];
-    if ( !roomObject.sockets.hasOwnProperty(requested_user) ){
-        var error_message = 'game_start requested a user that wasnt in the room, ABORTED, ' + requested_user;
-        log(error_message);
-        socket.emit('game_start_response', {
-                                            result: 'fail',
-                                            message: error_message
-                                        });
-        return;
-    }
-    
-    //If everything is ok, respond to the game starter that it was successful
-    var game_id = Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
-    var success_data = {
-            result: 'success',
-            socket_id: requested_user,
-            game_id: game_id
-    };
-    socket.emit('game_start_response', success_data); //back to game starter
+        var room            = players[socket.id].room;
+        var roomObject      = io.sockets.adapter.rooms[room];
+        if ( !roomObject.sockets.hasOwnProperty(requested_user) ){
+            var error_message = 'game_start requested a user that wasnt in the room, ABORTED, ' + requested_user;
+            log(error_message);
+            socket.emit('game_start_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        }
+        
+        //If everything is ok, respond to the game starter that it was successful
+        var game_id = Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
+        var success_data = {
+                result: 'success',
+                socket_id: requested_user,
+                game_id: game_id
+        };
+        socket.emit('game_start_response', success_data); //back to game starter
 
-    //tell the other player to play
-    var success_data = {
-            result: 'success',
-            socket_id: socket.id,
-            game_id: game_id
-    };
-    socket.to(requested_user).emit('game_start_response', success_data); //send to target
-    log('game_start successful');
-}); //end game_start command
+        //tell the other player to play
+        var success_data = {
+                result: 'success',
+                socket_id: socket.id,
+                game_id: game_id
+        };
+        socket.to(requested_user).emit('game_start_response', success_data); //send to target
+        log('game_start successful');
+    }); //end game_start command
+
+
+    /* play_token command              */
+    /* payload:
+        {
+            'row': 0-7 the row to play the token on
+            'column': 0-7 the column to play the token on
+            'color': white or black
+        }
+
+        if successful a success message will be followed by a game_update message
+        play_token_response: 
+        {
+            'result'    : 'success',
+        }
+        or
+        {
+            'result': 'fail',
+            'message': failure message
+        }
+    */
+   socket.on('play_token', function(payload){
+    log('play_token with ' + JSON.stringify(payload));
+
+        if(  ('undefined' === typeof payload) || !payload){
+            var error_message = 'play_token had no payload';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if undefined
+
+        //check that the player has previously registered
+        var player = players[socket.id];
+
+        if(  ('undefined' === typeof player) || !player){
+            var error_message = 'server doesnt recognize you try going back one screen, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if player    
+
+        var username = players[socket.id].username;
+
+        if(  ('undefined' === typeof username) || !username){
+            var error_message = 'play_token cant identify who sent the message, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if username        
+
+        var game_id = players[socket.id].room;
+        if(  ('undefined' === typeof game_id) || !game_id){
+            var error_message = 'play_token cant find your game board, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if game_id                
+
+        var row = payload.row;
+        if(  ('undefined' === typeof row) || row<0 || row>7){
+            var error_message = 'play_token didnt specify a valid row, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if row    
+
+        var column = payload.column;
+        if(  ('undefined' === typeof column) || column<0 || column>7){
+            var error_message = 'play_token didnt specify a valid col, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if column   
+        
+        var color = payload.color;
+        if(  ('undefined' === typeof color) || (color != 'white' && color != 'black') ){
+            var error_message = 'play_token didnt specify a valid col, ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if color                        
+
+        var game = games[game_id];
+        if(  ('undefined' === typeof game) || !game ){
+            var error_message = 'play_token couldnt find your game board , ABORTED';
+            log(error_message);
+            socket.emit('play_token_response', {
+                                                result: 'fail',
+                                                message: error_message
+                                            });
+            return;
+        } //end if game
+
+        var success_data = {
+            result: 'success'
+        };
+
+        socket.emit('play_token_response', success_data);
+
+        //Execute the move
+        if (color == 'white'){
+            game.board[row][column]    = 'w';
+            game.whose_turn         = 'black';
+        }
+        else if (color == 'black'){
+            game.board[row][column]    = 'b';
+            game.whose_turn         = 'white';
+        }        
+
+        var d = new Date();
+        game.last_move_time = d.getTime();
+        send_game_update(socket, game_id, 'played a token');
+    }); // end play token
 
 }); //end io socket connection
 
@@ -614,8 +748,58 @@ function send_game_update(socket, game_id, message){
     }
 
     //make sure that only 2 people are in the game room
+    var roomObject;
+    var numClients;
+    do{
+        roomObject = io.sockets.adapter.rooms[game_id];
+        numClients = roomObject.length;
+        if (numClients > 2){
+            console.log('too many clients in room: ' + game_id + '#: ' + numClients);
+            if (games[game_id].player_white.socket == roomObject.sockets[0]){
+                games[game_id].player_white.socket      = '';
+                games[game_id].player_white.username    = '';                
+            }
+            if (games[game_id].player_black.socket == roomObject.sockets[0]){
+                games[game_id].player_black.socket      = '';
+                games[game_id].player_black.username    = '';                
+            }            
+
+            //kick one of the extra people out
+            var sacrafice = Object.keys(roomObject.sockets)[0]; //get first socket
+            io.of('/').connected[sacrafice].leave(game_id);
+
+        }
+    }
+    while((numClients - 1) > 2)
 
     //assign this socket a color
+    //if the current player isnt assigned a color
+    if( (games[game_id].player_white.socket != socket.id) && (games[game_id].player_black.socket != socket.id)) {
+        console.log('player isnt assigned a color: ' + socket.id);
+
+        //and there isnt a color to give them
+        if((games[game_id].player_black.socket != '') && (games[game_id].player_white.socket != '')){
+            games[game_id].player_white.socket      = '';
+            games[game_id].player_white.username    = '';            
+                        
+            games[game_id].player_black.socket      = '';
+            games[game_id].player_black.username    = '';
+        }
+    }
+
+    //assign colors to players if not already done
+    if(games[game_id].player_white.socket == ''){
+        if(games[game_id].player_black.socket != socket.id){
+            games[game_id].player_white.socket      = socket.id;
+            games[game_id].player_white.username    = players[socket.id].username;            
+        }
+    }
+    if(games[game_id].player_black.socket == ''){
+        if(games[game_id].player_white.socket != socket.id){
+            games[game_id].player_black.socket      = socket.id;
+            games[game_id].player_black.username    = players[socket.id].username;            
+        }
+    }    
 
     //send the game update
     var success_data = {
