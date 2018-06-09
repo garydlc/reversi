@@ -389,7 +389,9 @@ var old_board =[
 var my_color = ' ';
 
 socket.on('game_update', function(payload){
-    console.log('*** Client log message: game_update \'n payload: ' + JSON.stringify(payload));
+    var milliseconds = new Date().getTime();
+   
+    console.log('*** Client log message: game_update  \n payload: ' + JSON.stringify(payload));
     //check for a good board update
 
     if (payload.result == 'fail'){
@@ -421,6 +423,11 @@ socket.on('game_update', function(payload){
     }
 
     $('#my_color').html('<h3 id="my_color"> I am ' + my_color + '</h3>');
+    $('#my_color').append('<h4>It is '+payload.game.whose_turn+'\s turn</h4>');
+    
+    $('#whitename').html('<h3 id="my_color"> ' + payload.game.player_white.username+'</h3>');
+    $('#blackname').html('<h3 id="my_color"> ' + payload.game.player_black.username+'</h3>');
+
 
     //animate changes to the board
     var blacksum = 0;
@@ -460,11 +467,11 @@ socket.on('game_update', function(payload){
                 }
                 else if (old_board[row][column] == ' ' && board[row][column] == 'w'){
                     var uniqueIndex = (row * 8) + (column + 1); 
-                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif?a='+uniqueIndex+'" alt="white"/>');
+                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="white"/>');
                 }                
                 else if (old_board[row][column] == ' ' && board[row][column] == 'b'){
                     var uniqueIndex = (row * 8) + (column + 1);                     
-                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+uniqueIndex+'"" alt="black"/>');
+                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'"" alt="black"/>');
                 }
                 else if (old_board[row][column] == 'w' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/white_to_empty.gif" alt="empty"/>');
@@ -473,20 +480,25 @@ socket.on('game_update', function(payload){
                     $('#' + row + '_' + column).html('<img src="assets/images/black_to_empty.gif" alt="empty"/>');
                 }                                                                
                 else if (old_board[row][column] == 'w' && board[row][column] == 'b'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/white_to_black.gif" alt="black"/>');
+                    var uniqueIndex = (row * 8) + (column + 1);                     
+                    $('#' + row + '_' + column).html('<img src="assets/images/white_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');
                 }                
                 else if (old_board[row][column] == 'b' && board[row][column] == 'w'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/black_to_white.gif" alt="white"/>');
+                    var uniqueIndex = (row * 8) + (column + 1);                     
+                    $('#' + row + '_' + column).html('<img src="assets/images/black_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="white"/>');
                 }      
                 else{
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="error"/>');
-                }        
-                
-                //set up interactivity
-                $('#' + row + '_' + column).off('click');
+                } 
+            }   //            if (old_board[row][column] != board[row][column]){       
 
-                //closure function attached to the square
-                if(board[row][column] == ' '){
+            //set up interactivity
+            $('#' + row + '_' + column).off('click'); 
+            $('#' + row + '_' + column).removeClass('hovered_over');
+
+            if (payload.game.whose_turn === my_color){
+                //if the pos we looking at is a legal move
+                if (payload.game.legal_moves[row][column] === my_color.substr(0,1)){
                     $('#' + row + '_' + column).addClass('hovered_over');
                     $('#' + row + '_' + column).click(function(r,c){
                         return function(){
@@ -497,14 +509,14 @@ socket.on('game_update', function(payload){
                             console.log('*** Client log message: \'play_token\' payload: ' + JSON.stringify(payload));
                             socket.emit('play_token', payload);
                         };
-                    }(row, column));
-                    
-                }
-                else{
-                    $('#' + row + '_' + column).removeClass('hovered_over');
-                }
-            }
-        }
+                    }(row, column));                    
+                } //end if legal
+            } //if my color
+
+
+
+            //} //end if
+        } //end of second loop
     } //end of master for loop
 
     /*
