@@ -1,5 +1,6 @@
 body {
-    background-image: url('../images/green.png');
+    background-image_: url('../images/green.png');
+    background-image: url('../images/empty.gif');    
   }
 
 table#game_board{
