@@ -1014,20 +1014,42 @@ function send_game_update(socket, game_id, message){
     //count to see if all tiles are full - temporary solution - game can be over before board is full. 
 
     var row, column;
-    var count = 0;
+    var count = 0; //num of legal moves left over
+    var black = 0;  //state of the world for black
+    var white = 0;  //state of the world for white
+
     for(row = 0; row < 8; row++){
         for (column = 0; column < 8; column++){
-            if (games[game_id].board[row][column] != ' '){
-                count++;
+            if (games[game_id].legal_moves[row][column] != ' '){
+                count++;    //indicates theres one more legal move
             }
-        }
-    }
+            if (games[game_id].board[row][column] === 'b'){
+                black++;
+            }
+            if (games[game_id].board[row][column] === 'w'){
+                white++;
+            }                        
+        } //end inner for columns
+    } //end outer for rows
 
-    if (count == 64){
+    //console.log('game update COUNTS for BLACK: ' +  )
+
+    if (count == 0){    //if no legal moves then game over
+        
+        var winner = 'tie game'; //if black === white
+        if (black > white){
+            winner = 'black';
+        }
+        else if (white > black){
+            winner = 'white'
+        }
+
+
+        //send a game over message
         var success_data = {
             result:         'success',
             game:           games[game_id],
-            who_won:        'everyone',
+            who_won:        winner,
             game_id:        game_id
         };
         io.in(game_id).emit('game_over', success_data);

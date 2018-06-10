@@ -375,6 +375,8 @@ $(function(){
     $('#quit').append('<a href="lobby.html?username=' + username + '" class="btn btn-danger btn-default active" role="button" aria-pressed="true">Quit</a> ');
 });
 
+//globals here
+
 var old_board =[
                     ['?', '?', '?', '?', '?', '?', '?', '?'],
                     ['?', '?', '?', '?', '?', '?', '?', '?'],
@@ -386,7 +388,45 @@ var old_board =[
                     ['?', '?', '?', '?', '?', '?', '?', '?']                    
                 ];
 
+    var old_hoverBoard =[
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?'],
+        ['?', '?', '?', '?', '?', '?', '?', '?']                    
+    ];                
+
 var my_color = ' ';
+
+var intervalVar;
+
+var interval_timer;
+
+function startBoardAnimation(){
+    intervalVar = setInterval(doBoardAnimation, 2000);
+}
+
+function stopBoardAnimation(){
+    if (intervalVar){
+        clearInterval(intervalVar);
+    }    
+}
+
+function doBoardAnimation(){
+    $('#game_board').animate({ borderRightWidth: "15px", borderLeftWidth: "15px"  }, {
+                                                queue:      true,
+                                                duration:   500
+                                                });
+
+
+    $('#game_board').animate({ borderRightWidth: "10px", borderLeftWidth: "10px"},  {
+                                                queue:      true,
+                                                duration:   500
+                                                });
+}
 
 socket.on('game_update', function(payload){
     var milliseconds = new Date().getTime();
@@ -423,10 +463,28 @@ socket.on('game_update', function(payload){
     }
 
     $('#my_color').html('<h3 id="my_color"> I am ' + my_color + '</h3>');
-    $('#my_color').append('<h4>It is '+payload.game.whose_turn+'\s turn</h4>');
+    $('#my_color').append('<h4>It is '+payload.game.whose_turn+'\s turn. Elapsed time <span id="elapsed"></span></h4>');
+    clearInterval(interval_timer);
+
+    interval_timer = setInterval(function(last_time){
+                        return function(){
+                            //do the work of updating the UI
+                            var d = new Date();
+                            var elapsedmilli = d.getTime() - last_time;
+                            var minutes  = Math.floor(elapsedmilli / (60*1000));
+                            var seconds = Math.floor((elapsedmilli % (60*1000)) / 1000);
+
+                            if (seconds < 10){
+                                $('#elapsed').html(minutes + ':0' + seconds);
+                            }
+                            else{
+                                $('#elapsed').html(minutes + ':' + seconds);                                
+                            }
+                        }}(payload.game.last_move_time)
+                                                , 1000);
     
-    $('#whitename').html('<h3 id="my_color"> ' + payload.game.player_white.username+'</h3>');
-    $('#blackname').html('<h3 id="my_color"> ' + payload.game.player_black.username+'</h3>');
+    $('#whitename').html(payload.game.player_white.username);
+    $('#blackname').html(payload.game.player_black.username);
 
 
     //animate changes to the board
@@ -434,9 +492,20 @@ socket.on('game_update', function(payload){
     var whitesum = 0;
     var row, column;
 
-    var randomNum = Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
-    
+    //var randomNum = Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
 
+    $('.legal').removeClass('legal');
+
+    if (payload.game.whose_turn === my_color){
+        //$('#game_board').animate({ borderWidth: "20px" }, 700 ).animate({ borderWidth: "10px" }, 700 );    
+        //start interval
+        startBoardAnimation();
+    }
+    else{
+        //stop interval
+        stopBoardAnimation();
+    }
+    
     for(row = 0; row < 8; row++){
         for (column = 0; column < 8; column++){
 
@@ -450,20 +519,20 @@ socket.on('game_update', function(payload){
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
                     if (((row * 8) + (column + 1 + (row%2))) % 2){
-                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a='+randomNum+'" alt="empty square"/>');
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="empty square"/>');
                     }
                     else{
-                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a='+randomNum+'" alt="empty square"/>');                            
+                        $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="empty square"/>');                            
                     }                  
 
                     //$('#' + row + '_' + column).html('<img class="bottomGif" src="assets/images/empty.gif" alt="empty square"/>');                            
                                                                                                   
                 }
                 else if (old_board[row][column] == '?' && board[row][column] == 'w'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif" alt="white"/>');                    
+                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'"  alt="white"/>');                    
                 }                
                 else if (old_board[row][column] == '?' && board[row][column] == 'b'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif" alt="black"/>');
+                    $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');
                 }
                 else if (old_board[row][column] == ' ' && board[row][column] == 'w'){
                     var uniqueIndex = (row * 8) + (column + 1); 
@@ -474,7 +543,7 @@ socket.on('game_update', function(payload){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'"" alt="black"/>');
                 }
                 else if (old_board[row][column] == 'w' && board[row][column] == ' '){
-                    $('#' + row + '_' + column).html('<img src="assets/images/white_to_empty.gif" alt="empty"/>');
+                    $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
                 }                
                 else if (old_board[row][column] == 'b' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/black_to_empty.gif" alt="empty"/>');
@@ -490,7 +559,7 @@ socket.on('game_update', function(payload){
                 else{
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="error"/>');
                 } 
-            }   //            if (old_board[row][column] != board[row][column]){       
+            }   // if (old_board[row][column] != board[row][column]){       
 
             //set up interactivity
             $('#' + row + '_' + column).off('click'); 
@@ -498,7 +567,17 @@ socket.on('game_update', function(payload){
 
             if (payload.game.whose_turn === my_color){
                 //if the pos we looking at is a legal move
+
                 if (payload.game.legal_moves[row][column] === my_color.substr(0,1)){
+                    if (false){
+                    //    $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
+                        $('#' + row + '_' + column).addClass('legal').animate({ borderWidth: "10px" }, 2000 );;    
+                    
+                    if (true){
+                        //$( ".legal" ).animate({ width: "50%" }, 2000 );
+                    }
+                   }
+
                     $('#' + row + '_' + column).addClass('hovered_over');
                     $('#' + row + '_' + column).click(function(r,c){
                         return function(){
@@ -512,12 +591,15 @@ socket.on('game_update', function(payload){
                     }(row, column));                    
                 } //end if legal
             } //if my color
+            else{
+                //not my color
+            }
 
 
 
             //} //end if
-        } //end of second loop
-    } //end of master for loop
+        } //end of second loop for each col
+    } //end of master for loop for each row
 
     /*
     if (blacksum == 2 && whitesum == 2 ){
@@ -642,7 +724,7 @@ socket.on('game_over', function(payload){
     }
 
     //jump to a new page
-    $('#game_over').html('<h1>Game over</h1><h2>' + payload.who_won + ' won!</h2>');
+    $('#game_over').html('<h1>Game over</h1><h2>' + payload.who_won + ' </h2>');
     $('#game_over').append('<a href="lobby.html?username=' + username + '" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a> ');
     
 });    
