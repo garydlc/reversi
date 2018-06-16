@@ -693,7 +693,7 @@ socket.on('game_update', function(payload){
                                 aLegalMove.html(numDir);
                             }
                             else{
-                                aLegalMove.html('');
+                                aLegalMove.html('&zwnj;');
                             }
                         }}(theOne, (timesToLoop == 0)),
                     timeToTrigger
