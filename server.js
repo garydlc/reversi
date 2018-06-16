@@ -855,11 +855,15 @@ function calculate_valid_moves(who, board){
         [' ', ' ', ' ', ' ',   ' ', ' ', ' ', ' ']    //7        
         ];
 
-        //go through each row and each column
+		//go through each row and each column
+		
+		var numDir = 0;
 
         for(var row = 0; row < 8; row++){
             for (var column = 0; column < 8; column++){
                 if (board[row][column] === ' '){
+					numDir = 0;
+
                    // console.log('VM: nw');
                     nw = valid_move(who, -1, -1, row, column, board);   
                    // console.log('VM: nn');                    
@@ -877,11 +881,37 @@ function calculate_valid_moves(who, board){
                     //console.log('VM: ss');
                     ss = valid_move(who, 1,  0, row, column, board);   
                     //console.log('VM: se');
-                    se = valid_move(who, 1,  1, row, column, board);                       
+					se = valid_move(who, 1,  1, row, column, board);   
+					
+					if(nw){
+						numDir++;
+					}
+					if(nn){
+						numDir++;
+					}
+					if(ne){
+						numDir++;
+					}
+					if(ww){
+						numDir++;
+					}
+					if(ee){
+						numDir++;
+					}
+					if(sw){
+						numDir++;
+					}
+					if(ss){
+						numDir++;
+					}
+					if(se){
+						numDir++;
+					}																																			
+
 
                     if (bSpecial){
                         if (nw || nn || ne || ww || ee || sw || ss || se){ //if any move valid
-                            valid[row][column] = who;
+                            valid[row][column] = who + numDir;
                         }
                     }
                     else{

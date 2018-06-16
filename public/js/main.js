@@ -624,11 +624,15 @@ socket.on('game_update', function(payload){
             if (payload.game.whose_turn === my_color){
                 //if the pos we looking at is a legal move
 
-                if (payload.game.legal_moves[row][column] === my_color.substr(0,1)){
+                if (payload.game.legal_moves[row][column].substr(0,1) === my_color.substr(0,1)){
                     if (true){
                     //    $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
                         //$('#' + row + '_' + column).addClass('legal').animate({ borderWidth: "10px" }, 2000 );
                         $('#' + row + '_' + column).addClass('legal');
+
+                        $('#' + row + '_' + column).attr("numDir", payload.game.legal_moves[row][column].substr(1,1) );
+
+                        //console.log( 'gary numdir: ' + payload.game.legal_moves[row][column].substr(1,1)  );
                         
                         //$('.legal').removeClass('legal');
 
@@ -662,14 +666,17 @@ socket.on('game_update', function(payload){
     var allLegalMovesLen    = allLegalMoves.length;
     var theOne;
     var timeToTrigger       = 0;
+    var numDir = 0;
 
+    //animate legal moves
     for (timesToLoop = 0 ; timesToLoop < 2; timesToLoop++){
         for ( i = 0; i < allLegalMovesLen; i++ ){
             timeToTrigger +=150;
             theOne = allLegalMoves.eq(i);
               
-                setTimeout(function(aLegalMove){
+                setTimeout(function(aLegalMove, bAdd){
                     return function(){
+
                         aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
                             queue:      true,
                             duration:   400
@@ -678,8 +685,17 @@ socket.on('game_update', function(payload){
                             aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
                             queue:      true,
                             duration:   400
-                            });                             
-                        }}(theOne),
+                            });     
+                            
+                            numDir = aLegalMove.attr("numDir");
+
+                            if (bAdd){
+                                aLegalMove.html(numDir);
+                            }
+                            else{
+                                aLegalMove.html('');
+                            }
+                        }}(theOne, (timesToLoop == 0)),
                     timeToTrigger
                 );  //end setTimeOut            
         }//end for loop legal moves
