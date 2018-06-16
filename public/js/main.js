@@ -406,26 +406,36 @@ var intervalVar;
 var interval_timer;
 
 function startBoardAnimation(){
-    intervalVar = setInterval(doBoardAnimation, 2000);
+    intervalVar = setInterval(doBoardAnimation, 2500);
 }
 
 function stopBoardAnimation(){
     if (intervalVar){
         clearInterval(intervalVar);
     }    
+    //color back to normal
+    //$('#game_board').css('border-color', '#646464');
+
 }
 
 function doBoardAnimation(){
-    $('#game_board').animate({ borderRightWidth: "15px", borderLeftWidth: "15px"  }, {
+    //"#ffff99"
+    //"#646464"
+
+    $('#game_board').animate({ borderRightWidth: "20px", borderLeftWidth: "20px", borderColor: "#ffff99" }, {
+                                                queue:      true,
+                                                duration:   500
+                                                });
+    
+    //$('#game_board').css('border-color', '#ffff99');
+
+
+
+    $('#game_board').animate({ borderRightWidth: "10px", borderLeftWidth: "10px", borderColor: "#646464"},  {
                                                 queue:      true,
                                                 duration:   500
                                                 });
 
-
-    $('#game_board').animate({ borderRightWidth: "10px", borderLeftWidth: "10px"},  {
-                                                queue:      true,
-                                                duration:   500
-                                                });
 }
 
 socket.on('game_update', function(payload){
@@ -509,15 +519,16 @@ socket.on('game_update', function(payload){
     for(row = 0; row < 8; row++){
         for (column = 0; column < 8; column++){
 
-            if (board[row][column] == 'b'){
+            if (board[row][column].substr(0,1) == 'b'){
                 blacksum++;
             }
-            if (board[row][column] == 'w'){
+            if (board[row][column].substr(0,1) == 'w'){
                 whitesum++;
             }            
             //if a board space has changed
             if (old_board[row][column] != board[row][column]){
                 if (old_board[row][column] == '?' && board[row][column] == ' '){
+                    
                     if (((row * 8) + (column + 1 + (row%2))) % 2){
                         $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="empty square"/>');
                     }
@@ -525,36 +536,81 @@ socket.on('game_update', function(payload){
                         $('#' + row + '_' + column).html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="empty square"/>');                            
                     }                  
 
-                    //$('#' + row + '_' + column).html('<img class="bottomGif" src="assets/images/empty.gif" alt="empty square"/>');                            
+                    //$('#' + row + '_' + column).html('<img class="bottomGif" src="assets/images/error.gif" alt="empty square"/>');                            
                                                                                                   
                 }
-                else if (old_board[row][column] == '?' && board[row][column] == 'w'){
+                else if (old_board[row][column] == '?' && board[row][column].substr(0,1) == 'w'){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'"  alt="white"/>');                    
                 }                
-                else if (old_board[row][column] == '?' && board[row][column] == 'b'){
+                else if (old_board[row][column] == '?' && board[row][column].substr(0,1) == 'b'){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');
                 }
-                else if (old_board[row][column] == ' ' && board[row][column] == 'w'){
+                else if (old_board[row][column] == ' ' && board[row][column].substr(0,1) == 'w'){
                     var uniqueIndex = (row * 8) + (column + 1); 
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="white"/>');
                 }                
-                else if (old_board[row][column] == ' ' && board[row][column] == 'b'){
+                else if (old_board[row][column] == ' ' && board[row][column].substr(0,1) == 'b'){
                     var uniqueIndex = (row * 8) + (column + 1);                     
                     $('#' + row + '_' + column).html('<img src="assets/images/empty_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'"" alt="black"/>');
                 }
-                else if (old_board[row][column] == 'w' && board[row][column] == ' '){
+                else if (old_board[row][column].substr(0,1) == 'w' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
                 }                
-                else if (old_board[row][column] == 'b' && board[row][column] == ' '){
+                else if (old_board[row][column].substr(0,1) == 'b' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/black_to_empty.gif" alt="empty"/>');
                 }                                                                
-                else if (old_board[row][column] == 'w' && board[row][column] == 'b'){
-                    var uniqueIndex = (row * 8) + (column + 1);                     
-                    $('#' + row + '_' + column).html('<img src="assets/images/white_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');
+                else if (old_board[row][column].substr(0,1) == 'w' && board[row][column].substr(0,1) == 'b'){
+                    var uniqueIndex = (row * 8) + (column + 1);               
+                    
+                    var direction = board[row][column].substr(1,2);
+                    //console.log('white directions: ' + direction);
+                    if (direction === 'nn' || direction === 'ss'){
+                        //choose vertical
+                        $('#' + row + '_' + column).html('<img src="assets/images/white_to_black_vertical.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }
+                    else if (direction === 'ww' || direction === 'ee'){
+                        //choose horizontal
+                        $('#' + row + '_' + column).html('<img src="assets/images/white_to_black_horizontal.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }                    
+                    else if (direction === 'nw' || direction === 'se'){
+                        //choose diagonal 1
+                        $('#' + row + '_' + column).html('<img src="assets/images/white_to_black_diagonal_NW_SE.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }                    
+                    else if (direction === 'ne' || direction === 'sw'){
+                        //choose diagonal 2
+                        $('#' + row + '_' + column).html('<img src="assets/images/white_to_black_diagonal_NE_SW.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }
+                    else{
+                        $('#' + row + '_' + column).html('<img src="assets/images/white_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>'); 
+                    }                                                            
+
+                    //$('#' + row + '_' + column).html('<img src="assets/images/white_to_black.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');
                 }                
-                else if (old_board[row][column] == 'b' && board[row][column] == 'w'){
+                else if (old_board[row][column].substr(0,1) == 'b' && board[row][column].substr(0,1) == 'w'){
                     var uniqueIndex = (row * 8) + (column + 1);                     
-                    $('#' + row + '_' + column).html('<img src="assets/images/black_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="white"/>');
+                    var direction = board[row][column].substr(1,2);
+
+                    if (direction === 'nn' || direction === 'ss'){
+                        //choose vertical
+                        $('#' + row + '_' + column).html('<img src="assets/images/black_to_white_vertical.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }
+                    else if (direction === 'ww' || direction === 'ee'){
+                        //choose horizontal
+                        $('#' + row + '_' + column).html('<img src="assets/images/black_to_white_horizontal.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }                    
+                    else if (direction === 'nw' || direction === 'se'){
+                        //choose diagonal 1
+                        $('#' + row + '_' + column).html('<img src="assets/images/black_to_white_diagonal_NW_SE.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }                    
+                    else if (direction === 'ne' || direction === 'sw'){
+                        //choose diagonal 2
+                        $('#' + row + '_' + column).html('<img src="assets/images/black_to_white_diagonal_NE_SW.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>');                        
+                    }
+                    else{
+                        $('#' + row + '_' + column).html('<img src="assets/images/black_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="black"/>'); 
+                    }                                                            
+
+                    //$('#' + row + '_' + column).html('<img src="assets/images/black_to_white.gif?a='+milliseconds+'_'+uniqueIndex+'" alt="white"/>');
                 }      
                 else{
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="error"/>');
@@ -569,12 +625,17 @@ socket.on('game_update', function(payload){
                 //if the pos we looking at is a legal move
 
                 if (payload.game.legal_moves[row][column] === my_color.substr(0,1)){
-                    if (false){
-                    //    $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
-                        $('#' + row + '_' + column).addClass('legal').animate({ borderWidth: "10px" }, 2000 );;    
-                    
                     if (true){
-                        //$( ".legal" ).animate({ width: "50%" }, 2000 );
+                    //    $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="empty"/>');
+                        //$('#' + row + '_' + column).addClass('legal').animate({ borderWidth: "10px" }, 2000 );
+                        $('#' + row + '_' + column).addClass('legal');
+                        
+                        //$('.legal').removeClass('legal');
+
+
+                    
+                        if (false){
+                            $( ".legal" ).animate({ width: "50%" }, 2000 );
                     }
                    }
 
@@ -594,108 +655,190 @@ socket.on('game_update', function(payload){
             else{
                 //not my color
             }
-
-
-
-            //} //end if
         } //end of second loop for each col
     } //end of master for loop for each row
 
-    /*
-    if (blacksum == 2 && whitesum == 2 ){
-        setTimeout(function(){
-            return function(){
-                $('#2_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#2_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#2_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#2_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
+    var allLegalMoves       = $('.legal');
+    var allLegalMovesLen    = allLegalMoves.length;
+    var theOne;
+    var timeToTrigger       = 0;
 
-                $('#3_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#4_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-                $('#5_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-
-                $('#5_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');                                                                                    
-                $('#5_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#5_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');
-
-                $('#4_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=b" alt="empty square"/>');
-                $('#3_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=b" alt="empty square"/>');             
-            }}(),
-            200
-        );  
+    for (timesToLoop = 0 ; timesToLoop < 2; timesToLoop++){
+        for ( i = 0; i < allLegalMovesLen; i++ ){
+            timeToTrigger +=150;
+            theOne = allLegalMoves.eq(i);
               
-        setTimeout(function(){
-            return function(){
-                $('#1_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#1_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#1_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#1_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#1_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#1_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-
-                $('#2_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#3_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#5_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#6_6').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                                               
-                $('#6_5').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#6_4').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#6_3').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#6_2').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');                
-                $('#6_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                
-                $('#5_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');
-                $('#4_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                $('#3_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=e" alt="empty square"/>');                
-                $('#2_1').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=e" alt="empty square"/>');
-                
-            }}(),
-            500
-        );
-
-        setTimeout(function(){
-            return function(){
-                $('#0_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');                
-                $('#0_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#0_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#0_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                //$('#0_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#0_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#0_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#0_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
+                setTimeout(function(aLegalMove){
+                    return function(){
+                        aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
+                            queue:      true,
+                            duration:   400
+                            });
+                    
+                            aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
+                            queue:      true,
+                            duration:   400
+                            });                             
+                        }}(theOne),
+                    timeToTrigger
+                );  //end setTimeOut            
+        }//end for loop legal moves
+    }
 
 
-                $('#1_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#2_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#3_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#4_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#5_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#6_7').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');                
-                $('#7_7').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+    /* 
+            setTimeout(function(id){
+                return function(){
+                    delete games[id];
+                }}(game_id),
+                60*60*1000
+            );
+     */
 
-                $('#7_6').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');                
-                $('#7_5').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#7_4').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#7_3').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#7_2').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-               // $('#7_1').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#7_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
+    /*
+    if (allLegalMovesLen >= 1){
+        var theOne = allLegalMoves.eq(0);
 
-                $('#6_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#5_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#4_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#3_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');
-                $('#2_0').html('<img class="emptyGif" src="assets/images/black_to_empty.gif?a=f" alt="empty square"/>');
-                $('#1_0').html('<img class="emptyGif" src="assets/images/white_to_empty.gif?a=f" alt="empty square"/>');                
-            }}(),
-            800
-        );
-        
-     } */
+        theOne.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
+            queue:      true,
+            duration:   500
+            });
+    
+        theOne.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
+            queue:      true,
+            duration:   500
+            });                    
+    }
 
+    if (allLegalMovesLen >= 2){
+        var theOne = allLegalMoves.eq(1);
+
+        theOne.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
+            queue:      true,
+            duration:   500
+            });
+    
+        theOne.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
+            queue:      true,
+            duration:   500
+            });                    
+    }
+    */    
+
+/*
+    allLegalMoves.each(function(){
+        $(this).animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
+            queue:      true,
+            duration:   500
+            });
+    
+        $(this).animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
+            queue:      true,
+            duration:   500
+            });                                    
+   
+     });    
+*/ 
+
+     console.log('gary num legal: ' + allLegalMoves.length);
+
+    var animateScore        = false;   
+
+    var theBlackSumString = $('#blacksum').html();
+    var theWhiteSumString = $('#whitesum').html();
+
+    var blackNumOrig = parseInt(theBlackSumString, 10);
+    var whiteNumOrig = parseInt(theWhiteSumString, 10);
+
+
+    var whichToAnimate   = '#blacksum';    
+
+    var myAnimateColor = '#000000';
+    var myAnimateSize  = '1.5em'; //default 
+    
+    if ( !((whitesum == 2) && (blacksum == 2)) && (blacksum != whitesum)){
+        animateScore = true;
+        if (my_color === 'white'){
+            //if I gained then yellow
+            whichToAnimate = '#whitesum';
+            if (whitesum > whiteNumOrig){
+                myAnimateColor = '#ffff99';
+            }
+            else if (whitesum < whiteNumOrig){
+                myAnimateColor = '#ff0000';
+            }
+
+            if (whitesum > blacksum){
+                //im in lead then make bigger
+                myAnimateSize  = '2.2em';                  
+            }
+        }
+        else{ //black
+            whichToAnimate = '#blacksum';
+            if (blacksum > blackNumOrig){
+                myAnimateColor = '#ffff99';
+            }
+            else if (blacksum < blackNumOrig){
+                myAnimateColor = '#ff0000';
+            }
+
+            if (blacksum > whitesum){
+                //im in lead then make bigger
+                myAnimateSize  = '2.2em';                  
+            }
+        }
+    } //end = 2
+
+    
     $('#blacksum').html(blacksum);
     $('#whitesum').html(whitesum);
+
+    if (animateScore){
+        //Got bigger yello
+        $(whichToAnimate).animate({ color: myAnimateColor, fontSize: myAnimateSize}, {
+            queue:      true,
+            duration:   600
+            });
+
+        $(whichToAnimate).animate({ color: "#000000", fontSize: '1.5em' }, { //back to normal
+            queue:      true,
+            duration:   1500
+            });    
+    }    
+
+    /*
+    if (animateScore){
+        //Got bigger yello
+        $(biggerSum).animate({ color: '#ffff99', fontSize: '2.1em' }, {
+            queue:      true,
+            duration:   500
+            });
+
+        $(biggerSum).animate({ color: "#000000", fontSize: '1.5em' }, {
+            queue:      true,
+            duration:   1500
+            });    
+            
+        //Got smaller red
+        $(otherSum).animate({ color: '#ff0000', fontSize: '0.5em' }, {
+            queue:      true,
+            duration:   500
+            });
+
+        $(otherSum).animate({ color: "#000000", fontSize: '1.5em' }, {
+            queue:      true,
+            duration:   1500
+            });            
+
+    }*/
+
+    /*
+    var newHTML = '<p>' + payload.username + ' has left the room</p>';
+    var newNode = $(newHTML);
+    newNode.hide();
+    $('#messages').prepend(newNode);
+    newNode.slideDown(1000);
+     */
     
     old_board = board;
 
@@ -724,7 +867,9 @@ socket.on('game_over', function(payload){
     }
 
     //jump to a new page
-    $('#game_over').html('<h1>Game over</h1><h2>' + payload.who_won + ' </h2>');
+    $('#game_over').html('<h1>Game over</h1><h2>' + payload.who_won + ' won! </h2>');
     $('#game_over').append('<a href="lobby.html?username=' + username + '" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a> ');
+
+    stopBoardAnimation();
     
 });    

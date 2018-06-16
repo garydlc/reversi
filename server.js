@@ -3,6 +3,7 @@
 /*            Set up the static file server */
 
 
+var bSpecial = true;
 /* include the static file webserver library */
 
 var static = require('node-static');
@@ -682,12 +683,13 @@ io.sockets.on('connection', function(socket){
         //check if color being played is correct
         //if the current attempt at playing a token is out of turn then error
         if (color !== game.whose_turn){
-            var error_message = 'play_token , played out of turn, ABORTED';
+            var error_message = 'play_token , played out of turn, oh really? ABORTED';
             log(error_message);
-            socket.emit('play_token_response', {
+			
+			/*socket.emit('play_token_response', {
                                                 result: 'fail',
                                                 message: error_message
-                                            });
+                                            });*/
             return;            
         } //end whose turn
 
@@ -772,8 +774,16 @@ function create_new_game(){
 //check if there is a color 'who' starting on the line (r, c) or
 //away further by adding dr, and dc to (r,c)
 function check_line_match(who, dr, dc, r, c, board){
+//console.log(who + ', ' + dr + ', ' + dc + ', ' + r +  ', ' + c );
 
-    if (board[r][c] === who){
+    if ( (r  < 0) || (r > 7 ) ) {
+        return false;
+    }
+    if ( (c  < 0) || (c > 7 ) ) {
+        return false;
+    }    
+
+    if (board[r][c].substr(0,1) === who){ //GARY PROBLEM HERE, undefined on substr
         return true;
     }
     if (board[r][c] === ' '){
@@ -812,10 +822,9 @@ function valid_move(who, dr, dc, r, c, board){
     if ( (c + dc < 0) || (c + dc > 7 ) ) {
         return false;
     }    
-    var whatIsHere = board[r+dr][c+dc];
 
     //this pos must be opposite in order to continue
-    if (board[r+dr][c+dc] != oppsite){ 
+    if (board[r+dr][c+dc].substr(0,1) != oppsite){ 
         return false;
     }
     //move one away
@@ -825,6 +834,8 @@ function valid_move(who, dr, dc, r, c, board){
     if ( (c + dc+dr < 0) || (c + dc +dr> 7 ) ) {
         return false;
     }    
+    
+    //console.log('from valid move: ' + who + ', ' + dr + ', ' + dc + ', ' + r +  ', ' + c );
 
     //need at least one opposite to continue
     //use recursive function to check that we end up with my color 
@@ -849,19 +860,34 @@ function calculate_valid_moves(who, board){
         for(var row = 0; row < 8; row++){
             for (var column = 0; column < 8; column++){
                 if (board[row][column] === ' '){
+                   // console.log('VM: nw');
                     nw = valid_move(who, -1, -1, row, column, board);   
+                   // console.log('VM: nn');                    
                     nn = valid_move(who, -1,  0, row, column, board);   
+                   // console.log('VM: ne');                    
                     ne = valid_move(who, -1,  1, row, column, board);   
 
+                    //console.log('VM: ww');
                     ww = valid_move(who, 0, -1, row, column, board);   
+                    //console.log('VM: ee');
                     ee = valid_move(who, 0, 1, row, column, board);                                           
 
+                    //console.log('VM: sw');
                     sw = valid_move(who, 1, -1, row, column, board);   
+                    //console.log('VM: ss');
                     ss = valid_move(who, 1,  0, row, column, board);   
+                    //console.log('VM: se');
                     se = valid_move(who, 1,  1, row, column, board);                       
 
-                    if (nw || nn || ne || ww || ee || sw || ss || se){ //if any move valid
-                        valid[row][column] = who;
+                    if (bSpecial){
+                        if (nw || nn || ne || ww || ee || sw || ss || se){ //if any move valid
+                            valid[row][column] = who;
+                        }
+                    }
+                    else{
+                        if (nw || nn || ne || ww || ee || sw || ss || se){ //if any move valid
+                            valid[row][column] = who;
+                        }
                     }
                 }
             } //end for col
@@ -889,7 +915,7 @@ function calculate_valid_moves(who, board){
 
 } //end calculate_valid_moves
 
-function flip_line(who, dr, dc, r, c, board){
+function flip_line(who, dr, dc, r, c, board, direction){
     if ( (r + dr < 0) || (r + dr > 7 ) ) {
         return false;
     }
@@ -901,12 +927,17 @@ function flip_line(who, dr, dc, r, c, board){
         return false;
     }
 
-    if (board[r+dr][c+dc] === who){  //base case weve reached myself's color. 
+    if (board[r+dr][c+dc].substr(0,1) === who){  //base case weve reached myself's color. 
         return true;
     }    
     else{
-        if(flip_line(who, dr, dc, r+dr, c+dc, board)){
-            board[r+dr][c+dc] = who; //flip to me
+        if(flip_line(who, dr, dc, r+dr, c+dc, board, direction)){
+            if(!bSpecial){
+                board[r+dr][c+dc] = who; //flip to me
+            }
+            else{
+                board[r+dr][c+dc] = who + direction; //flip to me
+            }
             return true;
         }
         else{
@@ -918,16 +949,16 @@ function flip_line(who, dr, dc, r, c, board){
 
 function flip_board(who, row, column, board){
 
-    flip_line(who, -1, -1, row, column, board); //nw
-    flip_line(who, -1,  0, row, column, board);   //nn
-    flip_line(who, -1,  1, row, column, board);   //ne
+    flip_line(who, -1, -1, row, column, board, 'nw'); //nw
+    flip_line(who, -1,  0, row, column, board, 'nn');   //nn
+    flip_line(who, -1,  1, row, column, board, 'ne');   //ne
 
-    flip_line(who, 0, -1, row, column, board);   //ww
-    flip_line(who, 0, 1, row, column, board);    //ee                                   
+    flip_line(who, 0, -1, row, column, board, 'ww');   //ww
+    flip_line(who, 0, 1, row, column, board, 'ee');    //ee                                   
 
-    flip_line(who, 1, -1, row, column, board);   //sw
-    flip_line(who, 1,  0, row, column, board);   //ss
-    flip_line(who, 1,  1, row, column, board);   //se                
+    flip_line(who, 1, -1, row, column, board, 'sw');   //sw
+    flip_line(who, 1,  0, row, column, board, 'ss');   //ss
+    flip_line(who, 1,  1, row, column, board, 'se');   //se                
 
 
 }
@@ -1023,12 +1054,22 @@ function send_game_update(socket, game_id, message){
             if (games[game_id].legal_moves[row][column] != ' '){
                 count++;    //indicates theres one more legal move
             }
-            if (games[game_id].board[row][column] === 'b'){
-                black++;
+            if (bSpecial){
+                if (games[game_id].board[row][column].substr(0,1) === 'b'){
+                    black++;
+                }
+                if (games[game_id].board[row][column].substr(0,1) === 'w'){
+                    white++;
+                }             
+            }           
+            else{
+                if (games[game_id].board[row][column] === 'b'){
+                    black++;
+                }
+                if (games[game_id].board[row][column] === 'w'){
+                    white++;
+                }             
             }
-            if (games[game_id].board[row][column] === 'w'){
-                white++;
-            }                        
         } //end inner for columns
     } //end outer for rows
 

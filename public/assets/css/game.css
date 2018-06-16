@@ -13,6 +13,15 @@ table#game_board{
 
 }
 
+.tableBorderColorActive{
+    border-color: #ffff99;
+}
+
+.tableBorderColorUnactive{
+    border-color: #646464;
+
+}
+
 table#game_board td{
     padding: 0px;
     border-style: solid;
@@ -37,16 +46,16 @@ td.hovered_over:hover{
     background-size: 100% 100%;
 }
 
-.legal{
+.legal2{
     background:url('../images/error.gif') top;
     background-size: 50% 100%;
 }
 
+
+
 .scores {
     display: inline-block;
     font-size: 1.5em;
-    margin-top: 0.83em;
-    margin-bottom: 0.83em;
     margin-left: 0.83em;
     margin-right: 0.83em;
     font-weight: bold;
@@ -65,3 +74,16 @@ td.hovered_over:hover{
 .borderClass{
     border: thin solid red
 }
+
+
+
+    .toggler { 
+        width: 500px; height: 200px; position: relative; 
+    }
+
+    #button { padding: .5em 1em; text-decoration: none; }
+    
+    #effect { width: 240px; height: 170px; padding: 0.4em; position: relative; background: #fff; }
+    
+    #effect h3 { margin: 0; padding: 0.4em; text-align: center; }
+  
