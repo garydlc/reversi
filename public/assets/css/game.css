@@ -2,6 +2,10 @@ body {
     background-image: url('../images/teal.png');
   }
 
+#header-row{
+    background-image: url('../images/green.png');
+}
+
 .btn-primary {
     color: #063442;
     background-color: #DBACA0;
