@@ -3,15 +3,27 @@ body {
   }
 
 .btn-primary {
-    color: #212529;
+    color: #063442;
     background-color: #DBACA0;
     border-color: #8D5858
 }
 
 .btn-primary:hover {
-    color: #212529;
+    color: #063442;
     background-color: #A17E75;
     border-color: #8D5858
+}
+
+.btn-info {
+    color: #F0D2C3;
+    background-color: #8D5858;
+    border-color: #704646
+}
+
+.btn-info:hover {
+    color: #F0D2C3;
+    background-color: #8D5858;
+    border-color: #704646
 }
 
 
