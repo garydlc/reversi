@@ -4,14 +4,14 @@ body {
 
 .btn-primary {
     color: #212529;
-    background-color: #7cc;
-    border-color: #5bc2c2
+    background-color: #DBACA0;
+    border-color: #8D5858
 }
 
 .btn-primary:hover {
     color: #212529;
-    background-color: #52bebe;
-    border-color: #8ad3d3
+    background-color: #A17E75;
+    border-color: #8D5858
 }
 
 
