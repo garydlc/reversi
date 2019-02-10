@@ -2,6 +2,18 @@ body {
     background-image: url('../images/green.png');
   }
 
+.btn-primary {
+    color: #212529;
+    background-color: #7cc;
+    border-color: #5bc2c2
+}
+
+.btn-primary:hover {
+    color: #212529;
+    background-color: #52bebe;
+    border-color: #8ad3d3
+}
+
 table#game_board{
     margin:auto;
     margin-top:     10px;
