@@ -12,6 +12,19 @@
     body{
       background-image: url('assets/images/green.png');
     }
+  
+  
+  $mynewcolor:#77cccc;
+
+  .btn-primary {
+      @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
+  }
+
+  .btn-outline-primary {
+      @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
+  }
+  
+}
 </style>
 
 
@@ -45,7 +58,7 @@
       
       <div class="row">
           <div class="col">
-              <a href="about.html" class="btn btn-lg btn-info">AAbout</a>
+              <a href="about.html" class="btn btn-lg btn-info">About</a>
           </div>
           <div class="col">
               <a href="https://en.wikipedia.org/wiki/Reversi" class="btn btn-lg btn-info">Rules</a>
