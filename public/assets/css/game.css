@@ -59,6 +59,9 @@
   font-family: "Audiowide", san-serif;
 }
 
+  .white-color {
+    color: #FFFFFF;
+   }
 
 body {
     background-image: url('../images/teal.png');
