@@ -90,6 +90,19 @@ body {
     background-image: url('../images/purple.png');
 }
 
+.btn-danger {
+    color: #FFFFFF;
+    background-color: #BC2D19;
+    border-color: #BC2D19
+}
+
+.btn-danger:hover {
+    color: #FFFFFF;
+    background-color: #8F2213;
+    border-color: #8F2213
+}
+
+
 .btn-success {
     color: #063442;
     background-color: #F08033;
