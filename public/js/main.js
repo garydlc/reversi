@@ -329,7 +329,7 @@ send_message
 */
 
 function makeInviteButton(socket_id){
-    var newHTML = '<button type=\'button\' class=\' btn btn-outline-primary\'> Invite ' + '</button>';
+    var newHTML = '<button type=\'button\' class=\' audiowideFont btn btn-outline-primary\'> Invite ' + '</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         invite(socket_id);
@@ -338,7 +338,7 @@ function makeInviteButton(socket_id){
 }
 
 function makeInvitedButton(socket_id){
-    var newHTML = '<button type=\'button\' class=\' btn btn-primary\'> Invited ' + '</button>';
+    var newHTML = '<button type=\'button\' class=\' audiowideFont btn btn-primary\'> Invited ' + '</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         uninvite(socket_id);
