@@ -347,7 +347,7 @@ function makeInvitedButton(socket_id){
 }
 
 function makePlayButton(socket_id){
-    var newHTML = '<button type=\'button\' class=\' btn btn-success\'> Play Now ' + '</button>';
+    var newHTML = '<button type=\'button\' class=\' audiowideFont btn btn-success\'> Play Now ' + '</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         game_start(socket_id);
