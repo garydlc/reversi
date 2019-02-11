@@ -683,13 +683,15 @@ socket.on('game_update', function(payload){
               
                 setTimeout(function(aLegalMove, bAdd){
                     return function(){
-
-                        aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#ffff99" }, {
+                        
+                        //yellow highlight ffff99
+                        aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#DBACA0" }, {
                             queue:      true,
                             duration:   400
                             });
                     
-                            aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#33cc99" }, {
+                        //green color 33cc99
+                            aLegalMove.animate({ borderRightWidth: "1px", borderLeftWidth: "1px", backgroundColor: "#8D5858" }, {
                             queue:      true,
                             duration:   400
                             });     
