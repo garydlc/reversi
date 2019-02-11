@@ -84,7 +84,10 @@
 
   .peach-color {
     color: #F0D2C3;
+            font-size: 2.5em; /* 40px/16=2.5em */
+
    }
+
 
 body {
     background-image: url('../images/teal.png');
