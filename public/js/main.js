@@ -828,7 +828,7 @@ socket.on('game_update', function(payload){
             duration:   600
             });
 
-        $(whichToAnimate).animate({ color: "#1E4363", fontSize: '1.5em' }, { //back to normal
+        $(whichToAnimate).animate({ color: "#000000", fontSize: '1.5em' }, { //back to normal
             queue:      true,
             duration:   1500
             });    
