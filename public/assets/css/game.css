@@ -90,6 +90,12 @@ body {
     background-image: url('../images/purple.png');
 }
 
+.btn-outline-primary
+ {
+    color: #F0D2C3;
+    border-color: #F0D2C3
+}
+
 .btn-primary {
     color: #063442;
     background-color: #DBACA0;
