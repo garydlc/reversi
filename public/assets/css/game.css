@@ -111,17 +111,13 @@ body {
     color: #FFFFFF;
     background-color: #BC2D19;
     border-color: #BC2D19;
-    margin: 20px 20px 20px 20px
 }
 
 .btn-danger:hover {
     color: #FFFFFF;
     background-color: #8F2213;
-    border-color: #8F2213;
-    margin: 20px 20px 20px 20px
-      
+    border-color: #8F2213;      
 }
-
 
 .btn-success {
     color: #063442;
