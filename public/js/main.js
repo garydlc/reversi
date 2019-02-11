@@ -778,7 +778,7 @@ socket.on('game_update', function(payload){
 
     var whichToAnimate   = '#blacksum';    
 
-    var colorDark   = '#000000';
+    var colorDark   = '#333333';
     var colorUp     = '#FFB00D';
     var colorDown   = '#BC2D19';
     var myAnimateColor = colorDark;
@@ -828,7 +828,7 @@ socket.on('game_update', function(payload){
             duration:   600
             });
 
-        $(whichToAnimate).animate({ color: "#000000", fontSize: '1.5em' }, { //back to normal
+        $(whichToAnimate).animate({ color: "#333333", fontSize: '1.5em' }, { //back to normal
             queue:      true,
             duration:   1500
             });    
