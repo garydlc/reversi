@@ -778,7 +778,10 @@ socket.on('game_update', function(payload){
 
     var whichToAnimate   = '#blacksum';    
 
-    var myAnimateColor = '#000000';
+    var colorDark   = '#1E4363';
+    var colorUp     = '#FFB00D';
+    var colorDown   = #'BC2D19';
+    var myAnimateColor = colorDark;
     var myAnimateSize  = '1.5em'; //default 
     
     if ( !((whitesum == 2) && (blacksum == 2)) && (blacksum != whitesum)){
@@ -787,10 +790,10 @@ socket.on('game_update', function(payload){
             //if I gained then yellow
             whichToAnimate = '#whitesum';
             if (whitesum > whiteNumOrig){
-                myAnimateColor = '#ffff99';
+                myAnimateColor = colorUp;
             }
             else if (whitesum < whiteNumOrig){
-                myAnimateColor = '#ff0000';
+                myAnimateColor = colorDown;
             }
 
             if (whitesum > blacksum){
@@ -801,10 +804,10 @@ socket.on('game_update', function(payload){
         else{ //black
             whichToAnimate = '#blacksum';
             if (blacksum > blackNumOrig){
-                myAnimateColor = '#ffff99';
+                myAnimateColor = colorUp;
             }
             else if (blacksum < blackNumOrig){
-                myAnimateColor = '#ff0000';
+                myAnimateColor = colorDown;
             }
 
             if (blacksum > whitesum){
@@ -825,7 +828,7 @@ socket.on('game_update', function(payload){
             duration:   600
             });
 
-        $(whichToAnimate).animate({ color: "#000000", fontSize: '1.5em' }, { //back to normal
+        $(whichToAnimate).animate({ color: "#1E4363", fontSize: '1.5em' }, { //back to normal
             queue:      true,
             duration:   1500
             });    
