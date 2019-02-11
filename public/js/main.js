@@ -372,7 +372,7 @@ $(function(){
             //send payload to server with command join_room
     socket.emit('join_room', payload);
 
-    $('#quit').append('<a href="lobby.html?username=' + username + '" class="btn btn-danger btn-default active" role="button" aria-pressed="true">Quit</a> ');
+    $('#quit').append('<a href="lobby.html?username=' + username + '" class="audiowideFont white-color btn btn-danger btn-default active" role="button" aria-pressed="true">Quit</a> ');
 });
 
 //globals here
