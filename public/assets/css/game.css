@@ -90,6 +90,19 @@ body {
     background-image: url('../images/purple.png');
 }
 
+.btn-success {
+    color: #063442;
+    background-color: #BEF2AD;
+    border-color: #BEF2AD
+}
+
+.btn-success:hover {
+    color: #063442;
+    background-color: #7EA172;
+    border-color: #7EA172
+}
+
+
 .btn-outline-primary
  {
     color: #F0D2C3;
