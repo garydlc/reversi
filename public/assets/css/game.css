@@ -96,6 +96,12 @@ body {
     border-color: #F0D2C3
 }
 
+.btn-outline-primary:hover {
+    color: #F0D2C3;
+    background-color: #063442;
+    border-color: #F0D2C3
+}
+
 .btn-primary {
     color: #063442;
     background-color: #DBACA0;
