@@ -84,8 +84,11 @@
 
   .peach-color {
     color: #F0D2C3;
-    font-size: 3.0em; /* 40px/16=2.5em */
    }
+
+      .med-font {
+        font-size: 7.0em; /* 40px/16=2.5em */
+       }
 
 
 body {
