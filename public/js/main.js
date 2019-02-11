@@ -778,7 +778,7 @@ socket.on('game_update', function(payload){
 
     var whichToAnimate   = '#blacksum';    
 
-    var colorDark   = '#1E4363';
+    var colorDark   = '#000000';
     var colorUp     = '#FFB00D';
     var colorDown   = '#BC2D19';
     var myAnimateColor = colorDark;
