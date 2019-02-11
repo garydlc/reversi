@@ -419,10 +419,17 @@ function stopBoardAnimation(){
 }
 
 function doBoardAnimation(){
-    //"#ffff99"
-    //"#646464"
+    //"#ffff99" highlight color
+    //"#646464" default color
+    
+    
+    //Peach  highlight
+    //DBACA0
+    
+    //Blue default
+    //063442
 
-    $('#game_board').animate({ borderRightWidth: "20px", borderLeftWidth: "20px", borderColor: "#ffff99" }, {
+    $('#game_board').animate({ borderRightWidth: "20px", borderLeftWidth: "20px", borderColor: "#DBACA0" }, {
                                                 queue:      true,
                                                 duration:   500
                                                 });
@@ -431,7 +438,7 @@ function doBoardAnimation(){
 
 
 
-    $('#game_board').animate({ borderRightWidth: "10px", borderLeftWidth: "10px", borderColor: "#646464"},  {
+    $('#game_board').animate({ borderRightWidth: "10px", borderLeftWidth: "10px", borderColor: "#063442"},  {
                                                 queue:      true,
                                                 duration:   500
                                                 });
