@@ -780,7 +780,7 @@ socket.on('game_update', function(payload){
 
     var colorDark   = '#1E4363';
     var colorUp     = '#FFB00D';
-    var colorDown   = #'BC2D19';
+    var colorDown   = '#BC2D19';
     var myAnimateColor = colorDark;
     var myAnimateSize  = '1.5em'; //default 
     
