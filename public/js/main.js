@@ -406,6 +406,7 @@ var intervalVar;
 var interval_timer;
 
 function startBoardAnimation(){
+    doBoardAnimation();
     intervalVar = setInterval(doBoardAnimation, 2500);
 }
 
