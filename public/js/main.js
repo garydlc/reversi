@@ -481,8 +481,8 @@ socket.on('game_update', function(payload){
     }
 
     $('#my_color').html('<h3 id="my_color"> I am ' + my_color + '</h3>');
-    $('#my_whose_turn').append('<h4 class="robotoFont" >It is '+payload.game.whose_turn+'\s turn. Elapsed time <span id="elapsed"></span></h4>');
-    $('#my_time_left').append('<h4 class="robotoFont" >Elapsed time <span id="elapsed"></span></h4>');
+    $('#my_whose_turn').html('<h4 class="robotoFont" >It\'s is '+payload.game.whose_turn+'\'s turn.</h4>');
+    $('#my_time_left').html('<h4 class="robotoFont" >Elapsed time <span id="elapsed"></span></h4>');
 
     
     clearInterval(interval_timer);
