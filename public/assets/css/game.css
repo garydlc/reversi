@@ -111,6 +111,10 @@ body {
     background-image: url('../images/purple.png');
 }
 
+.info-buttons{
+  margin-top: 20px;
+}
+
 .btn-danger {
     color: #FFFFFF;
     background-color: #BC2D19;
