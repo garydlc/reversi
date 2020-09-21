@@ -1,5 +1,5 @@
 /* functions for general use*/
-function triggerTheSequence(){
+function triggerTheSequence(whichSequence){
     console.log("Called 'triggerTheSequence'. Go dim the scene and start stream.");
     var evt_up = new MouseEvent("mouseup", {
         bubbles: true,
@@ -11,9 +11,20 @@ function triggerTheSequence(){
         cancelable: true,
         view: window
       });
-     
-    document.getElementById("233").dispatchEvent(evt_down);
-    document.getElementById("233").dispatchEvent(evt_up);
+
+     try{
+         if (whichSequence == 'go'){
+             document.getElementById("233").dispatchEvent(evt_down);
+             document.getElementById("233").dispatchEvent(evt_up);
+         }
+         else if (whichSequence == 'go2'){
+            document.getElementById("233").dispatchEvent(evt_down);
+            document.getElementById("233").dispatchEvent(evt_up);
+         }
+     }
+     catch(err){
+        console.log('Could not start the sequence. No id 233')
+     }
 }
 
 function GetURLParameters(whichParam){
@@ -72,8 +83,8 @@ socket.on('send_message_response', function(payload){
     if (payload.result == 'fail'){
         alert(payload.message);
         return;
-    } else if (payload.message == 'go'){
-        triggerTheSequence();
+    } else if (payload.message == 'go' || payload.message == 'go2' ){
+        triggerTheSequence(payload.message);
     }
     
 }); //end socket send_message response
