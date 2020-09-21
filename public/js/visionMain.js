@@ -23,7 +23,7 @@ function triggerTheSequence(whichSequence){
          }
      }
      catch(err){
-        console.log('Could not start the sequence. No id 233')
+        console.log('Could not start the sequence.')
      }
 }
 
