@@ -18,8 +18,8 @@ function triggerTheSequence(whichSequence){
              document.getElementById("233").dispatchEvent(evt_up);
          }
          else if (whichSequence == 'go2'){
-            document.getElementById("233").dispatchEvent(evt_down);
-            document.getElementById("233").dispatchEvent(evt_up);
+            document.getElementById("244").dispatchEvent(evt_down);
+            document.getElementById("244").dispatchEvent(evt_up);
          }
      }
      catch(err){
