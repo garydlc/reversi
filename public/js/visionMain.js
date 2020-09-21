@@ -4,7 +4,7 @@ function triggerTheSequence(whichSequence){
 
     //Key for the important divs.
     //Site vr Start = 233, Close = 254
-    //Site vr2 Start = 244, Close = TBD
+    //Site vr2 Start = 244, Close = 266
     var divId = '233';  //default
     var pos =  whichSequence.indexOf('go');
     if (pos !== -1){
