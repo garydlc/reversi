@@ -1,6 +1,21 @@
 /* functions for general use*/
 function triggerTheSequence(whichSequence){
-    console.log("Called 'triggerTheSequence'. Go dim the scene and start stream.");
+    console.log("Calling 'triggerTheSequence' v4. Go dim the scene and start stream.");
+
+    //Key for the important divs.
+    //Site vr Start = 233, Close = 254
+    //Site vr2 Start = 244, Close = TBD
+    var divId = '233';  //default
+    var pos =  whichSequence.indexOf('go');
+    if (pos !== -1){
+        var divIdTest = whichSequence.substring(pos + 'go'.length).trim();
+        if (divIdTest && divIdTest.length > 0){
+            divId = divIdTest;
+        }
+    }
+
+    console.log('divId used: ' +  divId);
+
     var evt_up = new MouseEvent("mouseup", {
         bubbles: true,
         cancelable: true,
@@ -13,13 +28,9 @@ function triggerTheSequence(whichSequence){
       });
 
      try{
-         if (whichSequence == 'go'){
-             document.getElementById("233").dispatchEvent(evt_down);
-             document.getElementById("233").dispatchEvent(evt_up);
-         }
-         else if (whichSequence == 'go2'){
-            document.getElementById("244").dispatchEvent(evt_down);
-            document.getElementById("244").dispatchEvent(evt_up);
+         if (divId && divId.length > 0 ){
+             document.getElementById(divId).dispatchEvent(evt_down);
+             document.getElementById(divId).dispatchEvent(evt_up);
          }
      }
      catch(err){
@@ -83,7 +94,7 @@ socket.on('send_message_response', function(payload){
     if (payload.result == 'fail'){
         alert(payload.message);
         return;
-    } else if (payload.message == 'go' || payload.message == 'go2' ){
+    } else if (payload.message.startsWith("go")){
         triggerTheSequence(payload.message);
     }
     
